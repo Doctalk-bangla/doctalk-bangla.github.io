@@ -126,3 +126,16 @@ footer a{color:#fff}
 .sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:6px}
 .nav .wrap{max-width:1440px}
 @media(min-width:1241px){.links a{font-size:14px;padding:10px 9px}}
+/* follow popup + visitor counter */
+.vc b{font-family:Poppins,sans-serif}
+.follow-dlg{max-width:min(440px,92vw);text-align:center}
+.follow-dlg::backdrop{background:rgba(4,30,31,.78);backdrop-filter:blur(3px)}
+.fw{padding:28px 24px 22px}
+.fw-logo{width:84px;height:84px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 5px var(--mint);margin:0 auto 14px;display:block}
+.fw h3{font-size:22px;margin:0 0 10px;color:var(--teal2)}
+.fw p{margin:0 0 14px;line-height:1.6}
+.fw-count{font-weight:600;color:var(--teal2)}
+.fw-btn{display:block;width:100%;font-size:18px;padding:14px;margin:6px 0 10px}
+.fw-note{margin:0!important}
+.fw-plugin{min-height:130px;margin:4px auto 12px;display:flex;justify-content:center}
+.fw-plugin iframe{border:0;overflow:hidden;border-radius:10px;width:100%;max-width:340px;height:130px}

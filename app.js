@@ -335,4 +335,45 @@ function rerender() { renderFeatures(); renderPosts(); renderToolTabs(); renderT
   setLang(store.get('lang', 'bn')); route();
 })();
 if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.io$/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {});
+
+// ===== visitor counter (free Abacus API; works on GitHub Pages too) =====
+(function visitors() {
+  const NS = 'doctalk-bangla', KEY = 'site-visits', today = new Date().toISOString().slice(0, 10);
+  const counted = store.get('vc_day', '') === today;           // one count per device per day
+  const url = `https://abacus.jasoncameron.dev/${counted ? 'get' : 'hit'}/${NS}/${KEY}`;
+  fetch(url).then((r) => r.json()).then((d) => {
+    if (typeof d.value !== 'number') return;
+    if (!counted) store.set('vc_day', today);
+    const n = d.value.toLocaleString(isBn() ? 'bn-BD' : 'en-US');
+    $$('[data-visits]').forEach((el) => { el.textContent = n; });
+    $$('.vc').forEach((el) => { el.hidden = false; });
+  }).catch(() => {});
+})();
+
+// ===== follow-the-page popup: Facebook Follow button inside the popup =====
+(function followGate() {
+  const dlg = $('#followDlg');
+  if (!dlg || store.get('fb_followed', false)) return;
+  const box = $('#fbPlugin'), done = $('#followDone');
+  const w = Math.min(340, Math.floor(window.innerWidth * 0.8));
+  const src = 'https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(CONFIG.FB_URL) +
+    `&tabs=&width=${w}&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
+  box.innerHTML = `<iframe src="${src}" title="DocTalk-বাংলা Facebook" scrolling="no" allowfullscreen allow="encrypted-media" style="width:${w}px"></iframe>`;
+  const FC = 'https://abacus.jasoncameron.dev/%s/doctalk-bangla/follow-clicks';
+  const showFollows = (v) => { if (typeof v !== 'number') return; $$('[data-follows]').forEach((el) => { el.textContent = v.toLocaleString(isBn() ? 'bn-BD' : 'en-US'); }); $$('.fc').forEach((el) => { el.hidden = false; }); };
+  fetch(FC.replace('%s', 'get')).then((r) => r.json()).then((d) => showFollows(d.value)).catch(() => {});
+  let tapped = false;
+  // A tap inside the Facebook frame moves focus to the iframe: that is our signal they pressed Follow.
+  window.addEventListener('blur', () => {
+    setTimeout(() => {
+      if (tapped || document.activeElement !== box.querySelector('iframe')) return;
+      tapped = true; store.set('fb_followed', true);
+      fetch(FC.replace('%s', 'hit')).then((r) => r.json()).then((d) => showFollows(d.value)).catch(() => {});
+      $('#fwHint').hidden = true; done.hidden = false; setTimeout(() => { if (dlg.open) dlg.close(); }, 2500);
+    }, 0);
+  });
+  done.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('cancel', (e) => e.preventDefault());   // Esc can't close it
+  setTimeout(() => { try { dlg.showModal(); } catch (e) {} }, 1200);
+})();
 }
