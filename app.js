@@ -245,7 +245,7 @@ $('#priceSearch').addEventListener('input', () => { pLimit = 60; if ($('#priceSe
 document.addEventListener('click', (e) => { const c = e.target.closest('[data-pc]'); if (c) { pCat = c.dataset.pc; pLimit = 60; renderPrices(); } const g = e.target.closest('[data-pg]'); if (g) { pGov = !pGov; pLimit = 60; renderPrices(); } if (e.target.closest('#pMore')) { pLimit += 100; renderPrices(); } });
 
 // ===== learn =====
-const LEARN = [['posts', 'স্বাস্থ্য পোস্ট', 'Health posts'], ['quiz', 'কুইজ', 'Quiz'], ['vax', 'শিশুর টিকা', 'Child vaccines'], ['med', 'ওষুধ নিরাপত্তা', 'Medicine safety'], ['dict', 'মেডিকেল ডিকশনারি', 'Medical dictionary'], ['survey', 'সার্ভে', 'Survey'], ['video', 'ভিডিও', 'Videos']];
+const LEARN = [['posts', 'স্বাস্থ্য পোস্ট', 'Health posts'], ['quiz', 'কুইজ', 'Quiz'], ['vax', 'শিশুর টিকা', 'Child vaccines'], ['med', 'ওষুধ নিরাপত্তা', 'Medicine safety'], ['dict', 'মেডিকেল ডিকশনারি', 'Medical dictionary'], ['video', 'ভিডিও', 'Videos']];
 let curLearn = 'posts';
 function renderLearnTabs() { $('#learnTabs').innerHTML = LEARN.map(([id, b, e]) => `<button data-l="${id}" class="${id === curLearn ? 'on' : ''}">${L(b, e)}</button>`).join(''); }
 $('#learnTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-l]'); if (!b) return; curLearn = b.dataset.l; renderLearnTabs(); renderLearn(); });
