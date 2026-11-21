@@ -137,6 +137,7 @@ footer a{color:#fff}
 .fw-count{font-weight:600;color:var(--teal2)}
 .fw-btn{display:block;width:100%;font-size:18px;padding:14px;margin:6px 0 10px}
 .fw-note{margin:0!important}
-.fw-plugin{min-height:130px;margin:4px auto 12px;display:flex;justify-content:center}
-.fw-plugin iframe{border:0;overflow:hidden;border-radius:10px;width:100%;max-width:340px;height:130px}
+.fw-plugin{min-height:200px;margin:4px auto 12px;display:flex;justify-content:center}
+.fw-plugin iframe{border:0;overflow:hidden;border-radius:10px;width:100%;max-width:340px;height:200px}
 .fw:focus{outline:none}
+.follow-dlg [hidden]{display:none!important}

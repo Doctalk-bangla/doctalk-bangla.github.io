@@ -357,7 +357,7 @@ if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.i
   const box = $('#fbPlugin'), done = $('#followDone');
   const w = Math.min(340, Math.floor(window.innerWidth * 0.8));
   const src = 'https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(CONFIG.FB_URL) +
-    `&tabs=&width=${w}&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
+    `&tabs=&width=${w}&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
   box.innerHTML = `<iframe src="${src}" title="DocTalk-বাংলা Facebook" scrolling="no" allowfullscreen allow="encrypted-media" style="width:${w}px"></iframe>`;
   const FC = 'https://countapi.mileshilliard.com/api/v1/%s/doctalk-bangla-follow-clicks';
   const showFollows = (v) => { v = Number(v) || 0; $$('[data-follows]').forEach((el) => { el.textContent = v.toLocaleString(isBn() ? 'bn-BD' : 'en-US'); }); $$('.fc').forEach((el) => { el.hidden = false; }); };
