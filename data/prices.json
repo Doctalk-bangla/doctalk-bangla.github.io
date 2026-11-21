@@ -1,0 +1,28 @@
+{"checked":"2026-11-21",
+"cols":[
+ {"id":"mugda","bn":"মুগদা জেনারেল হাসপাতাল (সরকারি)","en":"Mugda General Hospital (govt)","gov":true},
+ {"id":"bmu","bn":"পিজি / বিএমইউ (সরকারি)","en":"PG / BMU (govt)","gov":true},
+ {"id":"popular","bn":"পপুলার ডায়াগনস্টিক (বেসরকারি)","en":"Popular Diagnostic (private)","gov":false},
+ {"id":"ibnsina","bn":"ইবনে সিনা (বেসরকারি)","en":"Ibn Sina (private)","gov":false}],
+"rows":[
+ {"bn":"সিবিসি (CBC) — রক্তের পূর্ণ পরীক্ষা","en":"CBC (complete blood count)","p":{"mugda":150,"bmu":300,"popular":400,"ibnsina":450}},
+ {"bn":"ইএসআর (ESR)","en":"ESR","p":{"mugda":20,"popular":200,"ibnsina":150}},
+ {"bn":"প্রস্রাব পরীক্ষা (Urine R/E)","en":"Urine R/E","p":{"mugda":30,"popular":400,"ibnsina":250}},
+ {"bn":"ব্লাড সুগার (খালি পেটে / র‍্যান্ডম)","en":"Blood sugar (fasting / random)","p":{"mugda":60,"popular":200,"ibnsina":150}},
+ {"bn":"HbA1c (৩ মাসের গড় সুগার)","en":"HbA1c (3-month sugar)","p":{"popular":1500,"ibnsina":1000}},
+ {"bn":"লিপিড প্রোফাইল (কোলেস্টেরল)","en":"Lipid profile (cholesterol)","p":{"mugda":300,"popular":1400,"ibnsina":1000}},
+ {"bn":"সিরাম ক্রিয়েটিনিন (কিডনি)","en":"Serum creatinine (kidney)","p":{"mugda":50,"popular":400,"ibnsina":300}},
+ {"bn":"SGPT / ALT (লিভার)","en":"SGPT / ALT (liver)","p":{"mugda":70,"popular":500,"ibnsina":300}},
+ {"bn":"TSH (থাইরয়েড)","en":"TSH (thyroid)","p":{"popular":1000,"ibnsina":800}},
+ {"bn":"HBsAg (হেপাটাইটিস বি)","en":"HBsAg (hepatitis B)","p":{"mugda":450,"popular":1000,"ibnsina":600}},
+ {"bn":"বুকের এক্স-রে","en":"Chest X-ray","p":{"mugda":150,"popular":600}},
+ {"bn":"আল্ট্রাসনোগ্রাম (পুরো পেট)","en":"Ultrasound (whole abdomen)","p":{"mugda":220,"popular":2500,"ibnsina":1500}},
+ {"bn":"ইসিজি (ECG)","en":"ECG","p":{"bmu":100,"popular":400,"ibnsina":300}},
+ {"bn":"ইকো কালার ডপলার (হার্ট)","en":"Echo colour Doppler (heart)","p":{"mugda":600,"popular":3000,"ibnsina":2200}},
+ {"bn":"সিটি স্ক্যান (মস্তিষ্ক)","en":"CT scan (brain)","p":{"mugda":3000,"popular":5000,"ibnsina":4000}},
+ {"bn":"এমআরআই (মস্তিষ্ক)","en":"MRI (brain)","p":{"mugda":3000,"popular":8000,"ibnsina":7000}}],
+"sources":[
+ {"bn":"মুগদা: হাসপাতালের নোটিশ বোর্ডের ২০২৬ তালিকা (daudbd.com প্রকাশিত)","en":"Mugda: hospital notice-board list 2026 (as published by daudbd.com)","url":"https://www.daudbd.com/2026/03/mugda-500-bed-hospital-all-test-price-list.html"},
+ {"bn":"পিজি / বিএমইউ: medtestbd.com ২০২৬ তালিকা","en":"PG / BMU: medtestbd.com 2026 list","url":"https://medtestbd.com/hospital/pg-hospital-bsmmu-price-list"},
+ {"bn":"পপুলার: প্রতিষ্ঠানের নিজস্ব ওয়েবসাইটের মূল্য তালিকা (ধানমন্ডি)","en":"Popular: the centre's own website price list (Dhanmondi)","url":"https://old.populardiagnostic.com/our-price-list"},
+ {"bn":"ইবনে সিনা: findoutdoctor.com প্রকাশিত তালিকা (ছাড়ের আগের দাম)","en":"Ibn Sina: list published by findoutdoctor.com (price before discount)","url":"https://www.findoutdoctor.com/2018/11/medical-test-cost-in-ibn-sina-hospital.html"}]}
