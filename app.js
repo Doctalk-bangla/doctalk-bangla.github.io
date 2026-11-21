@@ -157,12 +157,12 @@ function renderTool() {
 }
 
 // ===== finder =====
-const TYPES = [['care', 'হাসপাতাল ও ক্লিনিক', 'Hospitals & clinics'], ['hospital', 'শুধু হাসপাতাল', 'Hospitals only'], ['pharmacy', 'ফার্মেসি', 'Pharmacies'], ['blood', 'ব্লাড ব্যাংক', 'Blood banks']];
+const TYPES = [['care', 'হাসপাতাল ও ক্লিনিক', 'Hospitals & clinics'], ['hospital', 'শুধু হাসপাতাল', 'Hospitals only'], ['pharmacy', 'ফার্মেসি', 'Pharmacies'], ['lab', 'ডায়াগনস্টিক / ল্যাব', 'Diagnostic labs'], ['dentist', 'দাঁতের ডাক্তার', 'Dentists']];
 let map, layer;
 function fillGeo() {
   const g = DATA.geo; if (!g) return; const nm = (r) => (isBn() ? r[2] : r[1]);
   const dv = $('#fDiv'), keep = { d: dv.value, s: $('#fDist').value, u: $('#fUpa').value, t: $('#fType').value };
-  dv.innerHTML = g.div.map((r) => `<option value="${r[0]}">${nm(r)}</option>`).join(''); dv.value = keep.d || store.get('fdiv', '3');
+  dv.innerHTML = g.div.map((r) => `<option value="${r[0]}">${nm(r)}</option>`).join(''); dv.value = keep.d || store.get('fdiv', '6');
   const fillDist = () => { const ds = g.dist.filter((d) => d[1] == dv.value); $('#fDist').innerHTML = ds.map((d) => `<option value="${d[0]}">${isBn() ? d[3] : d[2]}</option>`).join(''); };
   const fillUpa = () => { const us = g.upa.filter((u) => u[1] == $('#fDist').value); $('#fUpa').innerHTML = `<option value="">${isBn() ? 'পুরো জেলা' : 'Whole district'}</option>` + us.map((u) => `<option value="${u[0]}">${isBn() ? u[3] : u[2]}</option>`).join(''); };
   fillDist(); if (keep.s) $('#fDist').value = keep.s; fillUpa(); if (keep.u) $('#fUpa').value = keep.u;
@@ -176,27 +176,21 @@ function initMap() {
   window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
   layer = window.L.layerGroup().addTo(map); setTimeout(() => map.invalidateSize(), 50);
 }
-function qFor(t, lat, lon, r) {
-  const A = `(around:${r},${lat},${lon})`;
-  const parts = t === 'pharmacy' ? [`nwr["amenity"="pharmacy"]${A}`] : t === 'blood' ? [`nwr["healthcare"="blood_donation"]${A}`, `nwr["healthcare"="blood_bank"]${A}`] : t === 'hospital' ? [`nwr["amenity"="hospital"]${A}`, `nwr["healthcare"="hospital"]${A}`] : [`nwr["amenity"~"^(hospital|clinic|doctors)$"]${A}`, `nwr["healthcare"~"^(hospital|clinic|centre|doctor)$"]${A}`];
-  return `[out:json][timeout:25];(${parts.join(';')};);out center 120;`;
-}
-const EPS = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
+const TMAP = { care: 'hcd', hospital: 'h', pharmacy: 'p', lab: 'l', dentist: 't' };
+const KIND = { h: ['হাসপাতাল', 'Hospital'], c: ['ক্লিনিক / স্বাস্থ্যকেন্দ্র', 'Clinic / health centre'], d: ['ডাক্তারের চেম্বার', "Doctor's chamber"], p: ['ফার্মেসি', 'Pharmacy'], l: ['ডায়াগনস্টিক / ল্যাব', 'Diagnostic lab'], t: ['দাঁতের ডাক্তার', 'Dentist'] };
+let FAC = null;
+async function loadFac() { if (FAC) return FAC; const j = await getJSON('data/facilities.json'); FAC = j ? j.f : []; return FAC; }
 async function search(lat, lon, r, label) {
-  initMap(); if (!map) return; map.setView([lat, lon], r > 15000 ? 11 : 13); layer.clearLayers();
-  window.L.circleMarker([lat, lon], { radius: 8, color: '#ffc94a', fillOpacity: 1 }).addTo(layer);
+  initMap(); if (map) { map.setView([lat, lon], r > 15000 ? 11 : 13); layer.clearLayers(); window.L.circleMarker([lat, lon], { radius: 8, color: '#ffc94a', fillOpacity: 1 }).addTo(layer); }
   $('#fStatus').innerHTML = L('খোঁজা হচ্ছে…', 'Searching…'); $('#fList').innerHTML = '';
-  const q = qFor($('#fType').value, lat, lon, r); let js = null;
-  for (const ep of EPS) { try { const res = await fetch(ep, { method: 'POST', body: 'data=' + encodeURIComponent(q) }); if (res.ok) { js = await res.json(); break; } } catch (e) {} }
-  if (!js) { $('#fStatus').innerHTML = L('এখন তথ্য আনা গেল না। একটু পরে আবার চেষ্টা করুন।', 'Could not load data right now. Please try again shortly.'); return; }
-  const seen = new Set(); const P = js.elements.map((e) => ({ name: e.tags?.['name:bn'] || e.tags?.name || e.tags?.['name:en'], en: e.tags?.['name:en'] || e.tags?.name, lat: e.lat ?? e.center?.lat, lon: e.lon ?? e.center?.lon, ph: e.tags?.phone || e.tags?.['contact:phone'], kind: e.tags?.amenity || e.tags?.healthcare, em: e.tags?.emergency === 'yes', addr: [e.tags?.['addr:street'], e.tags?.['addr:city']].filter(Boolean).join(', ') }))
-    .filter((p) => p.name && p.lat && !seen.has(p.name) && seen.add(p.name))
-    .map((p) => ({ ...p, d: Math.hypot((p.lat - lat) * 111, (p.lon - lon) * 111 * Math.cos(lat * Math.PI / 180)) })).sort((a, b) => a.d - b.d);
-  const KIND = { hospital: ['হাসপাতাল', 'Hospital'], clinic: ['ক্লিনিক', 'Clinic'], doctors: ['ডাক্তারের চেম্বার', "Doctor's chamber"], pharmacy: ['ফার্মেসি', 'Pharmacy'], centre: ['স্বাস্থ্যকেন্দ্র', 'Health centre'], blood_donation: ['ব্লাড ব্যাংক', 'Blood bank'], blood_bank: ['ব্লাড ব্যাংক', 'Blood bank'], doctor: ['ডাক্তার', 'Doctor'] };
-  $('#fStatus').innerHTML = P.length ? L(`${label}: ${NB(P.length)}টি জায়গা পাওয়া গেছে (কাছ থেকে দূরে)`, `${label}: ${P.length} places found (nearest first)`) : L('কিছু পাওয়া যায়নি। "পুরো জেলা" বা অন্য ধরন বেছে দেখুন।', 'Nothing found. Try "Whole district" or another type.');
-  $('#fList').innerHTML = P.slice(0, 60).map((p, i) => { const k = KIND[p.kind] || ['স্বাস্থ্যসেবা', 'Health service'];
-    window.L.marker([p.lat, p.lon]).addTo(layer).bindPopup(`<b>${esc(p.name)}</b><br>${k[isBn() ? 0 : 1]}`);
-    return `<div class="place"><b>${esc(isBn() ? p.name : p.en || p.name)}</b><div class="small muted">${L(k[0], k[1])} · ${NB(p.d, 1)} ${L('কিমি', 'km')}${p.em ? ' · ' + L('জরুরি বিভাগ আছে', 'Has emergency') : ''}</div>${p.addr ? `<div class="small">${esc(p.addr)}</div>` : ''}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><a class="btn" style="min-height:38px;padding:6px 12px;font-size:14px" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}">${L('দিকনির্দেশ', 'Directions')}</a>${p.ph ? `<a class="btn ghost" style="min-height:38px;padding:6px 12px;font-size:14px" href="tel:${p.ph.split(';')[0].replace(/\s/g, '')}">${esc(p.ph.split(';')[0])}</a>` : ''}</div></div>`; }).join('');
+  const F = await loadFac(), want = TMAP[$('#fType').value], cosl = Math.cos(lat * Math.PI / 180);
+  let P = F.filter((f) => want.includes(f[2])).map((f) => ({ name: f[1] || f[0], en: f[0], k: f[2], lat: f[3], lon: f[4], up: f[5], di: f[6], d: Math.hypot((f[3] - lat) * 111, (f[4] - lon) * 111 * cosl) }));
+  let R = r / 1000; let near = P.filter((p) => p.d <= R); if (near.length < 5) { R = R * 2.5; near = P.filter((p) => p.d <= R); }
+  near.sort((a, b) => a.d - b.d);
+  $('#fStatus').innerHTML = near.length ? L(`${label}: ${NB(near.length)}টি জায়গা পাওয়া গেছে (${NB(R, 0)} কিমির মধ্যে, কাছ থেকে দূরে)`, `${label}: ${near.length} places within ${Math.round(R)} km (nearest first)`) : L('কাছাকাছি তালিকাভুক্ত কিছু পাওয়া যায়নি। অন্য ধরন বা "পুরো জেলা" বেছে দেখুন, অথবা উপজেলা স্বাস্থ্য কমপ্লেক্সে যোগাযোগ করুন।', 'Nothing listed nearby. Try another type or "Whole district", or contact the upazila health complex.');
+  $('#fList').innerHTML = near.slice(0, 60).map((p) => { const k = KIND[p.k];
+    if (map) window.L.marker([p.lat, p.lon]).addTo(layer).bindPopup(`<b>${esc(isBn() ? p.name : p.en)}</b><br>${k[isBn() ? 0 : 1]}`);
+    return `<div class="place"><b>${esc(isBn() ? p.name : p.en)}</b><div class="small muted">${L(k[0], k[1])} · ${NB(p.d, 1)} ${L('কিমি', 'km')}${p.up ? ' · ' + esc(p.up) : ''}</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><a class="btn" style="min-height:38px;padding:6px 12px;font-size:14px" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lon}">${L('দিকনির্দেশ', 'Directions')}</a><a class="btn ghost" style="min-height:38px;padding:6px 12px;font-size:14px" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.en + ' ' + (p.di || ''))}">${L('ফোন ও রিভিউ', 'Phone & reviews')}</a></div></div>`; }).join('');
 }
 $('#fGo').addEventListener('click', () => { const g = DATA.geo; if (!g) return; const u = g.upa.find((x) => x[0] == $('#fUpa').value), d = g.dist.find((x) => x[0] == $('#fDist').value);
   if (u) search(u[4], u[5], 10000, isBn() ? u[3] : u[2]); else if (d) search(d[4], d[5], 22000, isBn() ? d[3] : d[2]); });

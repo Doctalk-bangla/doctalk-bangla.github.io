@@ -9,5 +9,5 @@ Static site (no server needed). Hosted free on GitHub Pages.
 - `data/geo.json` — divisions, districts, upazilas (from nuhil/bangladesh-geocode)
 - Settings at the top of `app.js`: Facebook link, survey (Google Sheet) link
 
-Hospital/pharmacy search uses OpenStreetMap (Overpass API) live in the browser.
+Hospital/pharmacy search uses data/facilities.json (OpenStreetMap health facilities for Bangladesh, HOT export on HDX, Nov 2026). Refresh it every few months.
 For awareness only — not medical advice.
