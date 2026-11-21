@@ -336,15 +336,15 @@ function rerender() { renderFeatures(); renderPosts(); renderToolTabs(); renderT
 })();
 if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.io$/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {});
 
-// ===== visitor counter (free Abacus API; works on GitHub Pages too) =====
+// ===== visitor counter (free CountAPI by mileshilliard; works on GitHub Pages) =====
 (function visitors() {
   const NS = 'doctalk-bangla', KEY = 'site-visits', today = new Date().toISOString().slice(0, 10);
   const counted = store.get('vc_day', '') === today;           // one count per device per day
-  const url = `https://abacus.jasoncameron.dev/${counted ? 'get' : 'hit'}/${NS}/${KEY}`;
+  const url = `https://countapi.mileshilliard.com/api/v1/${counted ? 'get' : 'hit'}/${NS}-${KEY}`;
   fetch(url).then((r) => r.json()).then((d) => {
-    if (typeof d.value !== 'number') return;
+    const v = Number(d.value); if (!Number.isFinite(v)) return;
     if (!counted) store.set('vc_day', today);
-    const n = d.value.toLocaleString(isBn() ? 'bn-BD' : 'en-US');
+    const n = v.toLocaleString(isBn() ? 'bn-BD' : 'en-US');
     $$('[data-visits]').forEach((el) => { el.textContent = n; });
     $$('.vc').forEach((el) => { el.hidden = false; });
   }).catch(() => {});
@@ -359,9 +359,9 @@ if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.i
   const src = 'https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(CONFIG.FB_URL) +
     `&tabs=&width=${w}&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
   box.innerHTML = `<iframe src="${src}" title="DocTalk-বাংলা Facebook" scrolling="no" allowfullscreen allow="encrypted-media" style="width:${w}px"></iframe>`;
-  const FC = 'https://abacus.jasoncameron.dev/%s/doctalk-bangla/follow-clicks';
-  const showFollows = (v) => { if (typeof v !== 'number') return; $$('[data-follows]').forEach((el) => { el.textContent = v.toLocaleString(isBn() ? 'bn-BD' : 'en-US'); }); $$('.fc').forEach((el) => { el.hidden = false; }); };
-  fetch(FC.replace('%s', 'get')).then((r) => r.json()).then((d) => showFollows(d.value)).catch(() => {});
+  const FC = 'https://countapi.mileshilliard.com/api/v1/%s/doctalk-bangla-follow-clicks';
+  const showFollows = (v) => { v = Number(v) || 0; $$('[data-follows]').forEach((el) => { el.textContent = v.toLocaleString(isBn() ? 'bn-BD' : 'en-US'); }); $$('.fc').forEach((el) => { el.hidden = false; }); };
+  fetch(FC.replace('%s', 'get')).then((r) => r.json()).then((d) => showFollows(d.value)).catch(() => showFollows(0));
   let tapped = false;
   // A tap inside the Facebook frame moves focus to the iframe: that is our signal they pressed Follow.
   window.addEventListener('blur', () => {
