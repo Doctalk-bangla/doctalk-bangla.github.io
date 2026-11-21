@@ -354,14 +354,12 @@ if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.i
 (function followGate() {
   const dlg = $('#followDlg'), btn = $('#followBtn');
   if (!dlg || store.get('fb_followed', false)) return;
-  btn.href = CONFIG.FB_URL;
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
+  btn.href = CONFIG.FB_URL; btn.target = '_blank'; btn.rel = 'noopener';
+  // Tap: Facebook page opens (app on phones, new tab on computers); this tab stays on the website with the popup closed.
+  btn.addEventListener('click', () => {
     store.set('fb_followed', true);
-    dlg.close();
-    // silent tally of follow taps (not shown on the site)
     try { fetch('https://countapi.mileshilliard.com/api/v1/hit/doctalk-bangla-follow-clicks', { keepalive: true }); } catch (err) {}
-    setTimeout(() => { location.href = CONFIG.FB_URL; }, 150);
+    setTimeout(() => dlg.close(), 100);
   });
   dlg.addEventListener('cancel', (e) => e.preventDefault());   // Esc can't close it
   setTimeout(() => { try { dlg.showModal(); const f = dlg.querySelector('.fw'); f.tabIndex = -1; f.focus(); } catch (e) {} }, 1200);
