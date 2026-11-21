@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <nav class="nav"><div class="wrap">
@@ -127,10 +127,13 @@
 
 <!-- PRICES -->
 <section data-view="prices" class="band hidden"><div class="wrap">
-  <h2><span lang="bn">ল্যাব টেস্টের দাম: সরকারি বনাম বেসরকারি</span><span lang="en">Lab test prices: government vs private</span></h2>
+  <h2><span lang="bn">টেস্টের দাম: সরকারি বনাম বেসরকারি</span><span lang="en">Test prices: government vs private</span></h2>
   <p class="muted" id="priceNote"></p>
-  <input id="priceSearch" placeholder="টেস্ট খুঁজুন / search a test" aria-label="search test" style="margin:12px 0 16px">
+  <input id="priceSearch" placeholder="টেস্ট খুঁজুন / search a test" aria-label="search test" style="margin:12px 0 10px;font-size:18px">
+  <div class="tabs" id="pChips"></div>
+  <p class="small muted" id="pCount"></p>
   <div class="scroll"><table id="priceTable"></table></div>
+  <p style="text-align:center;margin-top:14px"><button class="btn ghost hidden" id="pMore"><span lang="bn">আরও দেখুন</span><span lang="en">Show more</span></button></p>
   <div class="note" id="priceSrc"></div>
 </div></section>
 
@@ -167,6 +170,6 @@
 
 <dialog id="dlg"><div class="dlg-top"><b id="dlgTitle"></b><button class="btn ghost" id="dlgClose">✕</button></div><div class="dlg" id="dlgBody"></div></dialog>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

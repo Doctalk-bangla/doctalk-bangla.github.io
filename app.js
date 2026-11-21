@@ -225,16 +225,23 @@ function renderDocs() { const q = ($('#docSearch').value || '').toLowerCase().tr
 $('#docSearch').addEventListener('input', renderDocs);
 
 // ===== prices =====
-function renderPrices() { const P = DATA.prices; if (!P) return; const q = ($('#priceSearch').value || '').toLowerCase();
-  const head = `<thead><tr><th>${L('টেস্ট', 'Test')}</th>${P.cols.map((c) => `<th style="white-space:normal">${L(c.bn, c.en)}</th>`).join('')}<th>${L('সাশ্রয়', 'You save')}</th></tr></thead>`;
-  const rows = P.rows.filter((r) => !q || (r.bn + r.en).toLowerCase().includes(q)).map((r) => { const gv = P.cols.filter((c) => c.gov && r.p[c.id]).map((c) => r.p[c.id]), pv = P.cols.filter((c) => !c.gov && r.p[c.id]).map((c) => r.p[c.id]);
-    const sv = gv.length && pv.length ? Math.max(...pv) - Math.min(...gv) : null;
-    return `<tr class="save"><td>${L(r.bn, r.en)}</td>${P.cols.map((c) => `<td class="n ${c.gov ? 'gov' : ''}">${r.p[c.id] ? '৳ ' + NB(r.p[c.id]) : '—'}</td>`).join('')}<td class="n">${sv ? L(`৳ ${NB(sv)} পর্যন্ত`, `up to ৳ ${sv.toLocaleString()}`) : '—'}</td></tr>`; }).join('');
-  $('#priceTable').innerHTML = head + `<tbody>${rows}</tbody>`;
-  $('#priceNote').innerHTML = L(`সরকারি হাসপাতালে একই টেস্ট অনেক কম দামে হয়। দামগুলো প্রকাশিত তালিকা থেকে নেওয়া, যাচাই ${fmtDate(P.checked)}। দাম বদলাতে পারে, শাখাভেদে আলাদা হতে পারে; যাওয়ার আগে ফোন করে নিশ্চিত হোন।`, `Government hospitals charge far less for the same test. Prices are from published lists, checked ${P.checked}. Prices change and can differ by branch; call to confirm before you go.`);
+const PCAT = [['all', 'সব', 'All'], ['pat', 'রক্ত ও প্যাথলজি', 'Blood & lab'], ['rad', 'এক্স-রে, সিটি, এমআরআই', 'X-ray, CT, MRI'], ['usg', 'আল্ট্রাসাউন্ড', 'Ultrasound'], ['card', 'হার্ট', 'Heart'], ['neu', 'স্নায়ু', 'Nerves'], ['endo', 'এন্ডোস্কপি', 'Endoscopy']];
+let pCat = 'all', pGov = true, pLimit = 60;
+function renderPrices() { const P = DATA.prices; if (!P || !P.rows) return; const q = ($('#priceSearch').value || '').toLowerCase().trim();
+  const govN = P.rows.filter((r) => r[3]).length;
+  $('#priceNote').innerHTML = L(`মোট ${NB(P.rows.length)}টি টেস্ট। প্রথম ${NB(govN)}টি সাধারণ টেস্টে সরকারি ও বেসরকারি দুই দামই আছে; বাকিগুলোর বেসরকারি দাম। সরকারি হাসপাতালে একই টেস্ট অনেক কম দামে হয়। যাচাই ${fmtDate(P.checked)}; দাম হাসপাতালভেদে আলাদা ও বদলাতে পারে, যাওয়ার আগে ফোন করে নিশ্চিত হোন।`, `${P.rows.length.toLocaleString()} tests in all. The first ${govN} common tests show both government and private prices; the rest show private prices. Government hospitals charge far less for the same test. Checked ${P.checked}; prices differ between hospitals and change, so call before you go.`);
+  if (!$('#pChips').dataset.ready) { $('#pChips').dataset.ready = 1; }
+  $('#pChips').innerHTML = PCAT.map(([v, b, e]) => `<button data-pc="${v}" class="${v === pCat ? 'on' : ''}">${L(b, e)}</button>`).join('') + `<button data-pg="1" class="${pGov && !q ? 'on' : ''}">${L('শুধু সরকারি দাম আছে এমন', 'Only with government price')}</button>`;
+  const effGov = pGov && !q; const list = P.rows.filter((r) => (pCat === 'all' || r[2] === pCat) && (!effGov || r[3]) && (!q || ((r[0] || '') + ' ' + r[1]).toLowerCase().includes(q)));
+  const head = `<thead><tr><th>${L('টেস্ট', 'Test')}</th><th>${L('সরকারি হাসপাতাল', 'Government hospital')}</th><th>${L('বেসরকারি', 'Private')}</th><th>${L('সাশ্রয়', 'You save')}</th></tr></thead>`;
+  const rows = list.slice(0, pLimit).map((r) => { const sv = r[3] && r[4] ? r[4] - r[3] : null; return `<tr><td>${r[0] ? L(r[0], r[1]) : esc(r[1])}</td><td class="n gov">${r[3] ? '৳ ' + NB(r[3]) : `<span class="muted small">${L('তালিকায় নেই', 'Not listed')}</span>`}</td><td class="n">${r[4] ? '৳ ' + NB(r[4]) : '—'}</td><td class="n">${sv > 0 ? L(`৳ ${NB(sv)}`, `৳ ${sv.toLocaleString()}`) : '—'}</td></tr>`; }).join('');
+  $('#priceTable').innerHTML = head + `<tbody>${rows || `<tr><td colspan="4" class="muted">${effGov ? L('সরকারি দামে মেলেনি। "শুধু সরকারি দাম আছে এমন" বন্ধ করে আবার খুঁজুন।', 'No match with a government price. Turn off "Only with government price" and search again.') : L('কিছু মেলেনি', 'No match')}</td></tr>`}</tbody>`;
+  $('#pCount').innerHTML = list.length ? L(`${NB(Math.min(pLimit, list.length))} / ${NB(list.length)}টি দেখানো হচ্ছে`, `Showing ${Math.min(pLimit, list.length)} of ${list.length}`) : '';
+  $('#pMore').classList.toggle('hidden', list.length <= pLimit);
   $('#priceSrc').innerHTML = `<b>${L('সূত্র', 'Sources')}:</b><br>` + P.sources.map((s) => `• <a href="${s.url}" target="_blank" rel="noopener">${L(s.bn, s.en)}</a>`).join('<br>');
 }
-$('#priceSearch').addEventListener('input', renderPrices);
+$('#priceSearch').addEventListener('input', () => { pLimit = 60; if ($('#priceSearch').value && pGov) { /* search everything */ } renderPrices(); });
+document.addEventListener('click', (e) => { const c = e.target.closest('[data-pc]'); if (c) { pCat = c.dataset.pc; pLimit = 60; renderPrices(); } const g = e.target.closest('[data-pg]'); if (g) { pGov = !pGov; pLimit = 60; renderPrices(); } if (e.target.closest('#pMore')) { pLimit += 100; renderPrices(); } });
 
 // ===== learn =====
 const LEARN = [['posts', 'স্বাস্থ্য পোস্ট', 'Health posts'], ['quiz', 'কুইজ', 'Quiz'], ['vax', 'শিশুর টিকা', 'Child vaccines'], ['med', 'ওষুধ নিরাপত্তা', 'Medicine safety'], ['dict', 'মেডিকেল ডিকশনারি', 'Medical dictionary'], ['survey', 'সার্ভে', 'Survey'], ['video', 'ভিডিও', 'Videos']];
