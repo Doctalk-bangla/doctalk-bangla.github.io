@@ -350,30 +350,20 @@ if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.i
   }).catch(() => {});
 })();
 
-// ===== follow-the-page popup: Facebook Follow button inside the popup =====
+// ===== follow-the-page popup: one tap -> popup gone -> Facebook page opens in the same tab =====
 (function followGate() {
-  const dlg = $('#followDlg');
+  const dlg = $('#followDlg'), btn = $('#followBtn');
   if (!dlg || store.get('fb_followed', false)) return;
-  const box = $('#fbPlugin'), done = $('#followDone');
-  const w = Math.min(340, Math.floor(window.innerWidth * 0.8));
-  const src = 'https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(CONFIG.FB_URL) +
-    `&tabs=&width=${w}&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`;
-  box.innerHTML = `<iframe src="${src}" title="DocTalk-বাংলা Facebook" scrolling="no" allowfullscreen allow="encrypted-media" style="width:${w}px"></iframe>`;
-  const FC = 'https://countapi.mileshilliard.com/api/v1/%s/doctalk-bangla-follow-clicks';
-  const showFollows = (v) => { v = Number(v) || 0; $$('[data-follows]').forEach((el) => { el.textContent = v.toLocaleString(isBn() ? 'bn-BD' : 'en-US'); }); $$('.fc').forEach((el) => { el.hidden = false; }); };
-  fetch(FC.replace('%s', 'get')).then((r) => r.json()).then((d) => showFollows(d.value)).catch(() => showFollows(0));
-  let tapped = false;
-  // A tap inside the Facebook frame moves focus to the iframe: that is our signal they pressed Follow.
-  window.addEventListener('blur', () => {
-    setTimeout(() => {
-      if (tapped || document.activeElement !== box.querySelector('iframe')) return;
-      tapped = true; store.set('fb_followed', true);
-      fetch(FC.replace('%s', 'hit')).then((r) => r.json()).then((d) => showFollows(d.value)).catch(() => {});
-      $('#fwHint').hidden = true; done.hidden = false; setTimeout(() => { if (dlg.open) dlg.close(); }, 2500);
-    }, 0);
+  btn.href = CONFIG.FB_URL;
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    store.set('fb_followed', true);
+    dlg.close();
+    // silent tally of follow taps (not shown on the site)
+    try { fetch('https://countapi.mileshilliard.com/api/v1/hit/doctalk-bangla-follow-clicks', { keepalive: true }); } catch (err) {}
+    setTimeout(() => { location.href = CONFIG.FB_URL; }, 150);
   });
-  done.addEventListener('click', () => dlg.close());
   dlg.addEventListener('cancel', (e) => e.preventDefault());   // Esc can't close it
-  setTimeout(() => { try { dlg.showModal(); const f = dlg.querySelector('.fw'); f.tabIndex = -1; f.focus(); } catch (e) {} }, 1200);   // keep focus off the Facebook frame until the visitor taps it
+  setTimeout(() => { try { dlg.showModal(); const f = dlg.querySelector('.fw'); f.tabIndex = -1; f.focus(); } catch (e) {} }, 1200);
 })();
 }

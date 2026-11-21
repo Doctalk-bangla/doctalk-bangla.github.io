@@ -7,17 +7,20 @@
 <meta name="description" content="DocTalk-বাংলা: সহজ বাংলায় স্বাস্থ্য তথ্য, হেলথ ক্যালকুলেটর, কাছের হাসপাতাল খোঁজা, ল্যাব টেস্টের দাম, কোন রোগে কোন ডাক্তার, টিকার সময়সূচি।">
 <meta property="og:title" content="DocTalk-বাংলা — স্বাস্থ্যের কথা, সহজ বাংলায়">
 <meta property="og:description" content="হেলথ টুলস, হাসপাতাল খোঁজা, ল্যাব টেস্টের দাম ও প্রতিদিনের স্বাস্থ্য টিপস।">
-<meta property="og:image" content="img/cover.jpg">
-<meta name="theme-color" content="#0b6466">
+<meta property="og:image" content="https://doctalk-bangla.github.io/img/og.jpg">
+<meta name="theme-color" content="#0F2A4F">
 <link rel="icon" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 <nav class="nav"><div class="wrap">
-  <a class="brand" href="#home"><img src="img/logo.jpg" alt=""><span>Doc<b>Talk</b>-বাংলা</span></a>
+  <a class="brand" href="#home" aria-label="DocTalk-বাংলা"><svg class="" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><defs><linearGradient id="grnv" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#3FE0CF"/></linearGradient>
+<linearGradient id="gxnv" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3FE0CF"/><stop offset="1" stop-color="#4FA3FF"/></linearGradient></defs>
+<path d="M93.63 69.29A38 38 0 1 1 50.71 26.37" fill="none" stroke="url(#grnv)" stroke-width="17" stroke-linecap="butt"/>
+<g fill="url(#gxnv)"><rect x="78" y="14" width="13" height="40" rx="2"/><rect x="64.5" y="27.5" width="40" height="13" rx="2"/></g></svg><span class="wm">DocTalk<em>-বাংলা</em></span></a>
   <button class="lang menu" id="menuBtn" aria-label="Menu">☰</button>
   <div class="links" id="links">
     <a href="#home"><span lang="bn">হোম</span><span lang="en">Home</span></a>
@@ -42,25 +45,20 @@
 <section data-view="home">
   <div class="hero"><div class="wrap">
     <div>
-      <h1><span lang="bn">স্বাস্থ্যের কথা,<br>সহজ বাংলায়</span><span lang="en">Health made simple,<br>in Bangla</span></h1>
+      <h1><span lang="bn">স্বাস্থ্যের কথা,<br><em>সহজ বাংলায়</em></span><span lang="en">Health made simple,<br><em>in Bangla</em></span></h1>
       <p><span lang="bn">রোগ চিনুন, প্রতিরোধ জানুন, সুস্থ থাকুন। হেলথ ক্যালকুলেটর, কাছের হাসপাতাল, ল্যাব টেস্টের দাম আর প্রতিদিনের গবেষণাভিত্তিক স্বাস্থ্য তথ্য, সব এক জায়গায়।</span><span lang="en">Know the illness, learn prevention, stay healthy. Health calculators, nearby hospitals, lab test prices and research-based daily health tips, all in one place.</span></p>
       <div class="cta">
         <a class="btn y" href="#find"><span lang="bn">কাছের হাসপাতাল খুঁজুন</span><span lang="en">Find a hospital near you</span></a>
         <a class="btn ghost" href="#tools"><span lang="bn">হেলথ টুলস</span><span lang="en">Health tools</span></a>
       </div>
-      <div class="chips"><span lang="bn">WHO · DGHS · icddr,b সূত্রে যাচাই করা</span><span lang="en">Checked against WHO · DGHS · icddr,b</span><span>৬৪ <span lang="bn">জেলা</span><span lang="en">districts</span></span><span>৪৯৫ <span lang="bn">উপজেলা</span><span lang="en">upazilas</span></span><span class="vc" hidden>👁 <b data-visits>…</b> <span lang="bn">বার দেখা হয়েছে</span><span lang="en">visits</span></span></div>
+      <div class="chips"><span lang="bn">WHO · DGHS · icddr,b সূত্রে যাচাই করা</span><span lang="en">Checked against WHO · DGHS · icddr,b</span><span>৬৪ <span lang="bn">জেলা</span><span lang="en">districts</span></span><span>৪৯৫ <span lang="bn">উপজেলা</span><span lang="en">upazilas</span></span></div>
     </div>
     <div class="art" aria-hidden="true">
-      <svg viewBox="0 0 420 340">
-        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9f3f1"/></linearGradient></defs>
-        <circle cx="300" cy="70" r="90" fill="#ffffff" opacity=".07"/><circle cx="80" cy="280" r="70" fill="#ffc94a" opacity=".12"/>
-        <ellipse cx="210" cy="312" rx="150" ry="14" fill="#000" opacity=".15"/>
-        <path d="M70 60h280a34 34 0 0 1 34 34v130a34 34 0 0 1-34 34H170l-62 46 10-46H70a34 34 0 0 1-34-34V94a34 34 0 0 1 34-34z" fill="url(#g1)"/>
-        <path d="M70 60h280a34 34 0 0 1 34 34v8H36v-8a34 34 0 0 1 34-34z" fill="#fff" opacity=".6"/>
-        <polyline points="70,165 140,165 160,120 185,215 210,95 232,190 250,165 340,165" fill="none" stroke="#0b6466" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle class="beat" cx="340" cy="165" r="13" fill="#ff6b6b"/>
-        <g transform="translate(300,232)"><rect width="96" height="40" rx="20" fill="#ffc94a"/><text x="48" y="27" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="17" fill="#2a1f00">24/7</text></g>
-      </svg>
+      <div class="glow"></div><svg class="hero-mark" viewBox="0 0 120 120" width="260" height="260" aria-hidden="true"><defs><linearGradient id="grhero" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#3FE0CF"/></linearGradient>
+<linearGradient id="gxhero" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3FE0CF"/><stop offset="1" stop-color="#4FA3FF"/></linearGradient></defs>
+<path d="M93.63 69.29A38 38 0 1 1 50.71 26.37" fill="none" stroke="url(#grhero)" stroke-width="17" stroke-linecap="butt"/>
+<g fill="url(#gxhero)"><rect x="78" y="14" width="13" height="40" rx="2"/><rect x="64.5" y="27.5" width="40" height="13" rx="2"/></g></svg>
+      <div class="hb b1"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z" fill="currentColor"/></svg></i><span lang="bn">প্রতিদিন নতুন ভিডিও</span><span lang="en">New videos daily</span></div><div class="hb b2"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></i><span lang="bn">ভুল ধারণা বনাম সত্য</span><span lang="en">Myths vs facts</span></div><div class="hb b3"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M12 10v7M8.5 13.5h7"/></svg></i><span lang="bn">প্রাথমিক চিকিৎসা</span><span lang="en">First aid</span></div><div class="hb b4"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/></svg></i><span lang="bn">কখন ডাক্তার দেখাবেন</span><span lang="en">When to see a doctor</span></div>
     </div>
   </div></div>
 
@@ -160,28 +158,35 @@
 
 <footer><div class="wrap">
   <div class="fgrid">
-    <div><a class="brand" href="#home"><img src="img/logo.jpg" alt=""><span>Doc<b>Talk</b>-বাংলা</span></a><p class="small"><span lang="bn">স্বাস্থ্যের কথা, সহজ বাংলায়।</span><span lang="en">Health made simple, in Bangla.</span></p></div>
+    <div><a class="brand" href="#home" aria-label="DocTalk-বাংলা"><svg class="" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><defs><linearGradient id="grft" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#3FE0CF"/></linearGradient>
+<linearGradient id="gxft" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3FE0CF"/><stop offset="1" stop-color="#4FA3FF"/></linearGradient></defs>
+<path d="M93.63 69.29A38 38 0 1 1 50.71 26.37" fill="none" stroke="url(#grft)" stroke-width="17" stroke-linecap="butt"/>
+<g fill="url(#gxft)"><rect x="78" y="14" width="13" height="40" rx="2"/><rect x="64.5" y="27.5" width="40" height="13" rx="2"/></g></svg><span class="wm">DocTalk<em>-বাংলা</em></span></a><p class="small"><span lang="bn">স্বাস্থ্যের কথা, সহজ বাংলায়।</span><span lang="en">Health made simple, in Bangla.</span></p></div>
     <div><b><span lang="bn">টুলস</span><span lang="en">Tools</span></b><br><a href="#tools">BMI · <span lang="bn">ক্যালোরি</span><span lang="en">Calories</span></a><br><a href="#find"><span lang="bn">হাসপাতাল খোঁজা</span><span lang="en">Hospital finder</span></a><br><a href="#prices"><span lang="bn">টেস্টের দাম</span><span lang="en">Test prices</span></a></div>
     <div><b><span lang="bn">জরুরি</span><span lang="en">Emergency</span></b><br>৯৯৯ · <span lang="bn">স্বাস্থ্য বাতায়ন</span><span lang="en">Health line</span> ১৬২৬৩</div>
     <div><b><span lang="bn">ফলো করুন</span><span lang="en">Follow</span></b><br><a data-fb href="#">Facebook: DocTalk-বাংলা</a></div>
   </div>
-  <div class="disc"><span lang="bn">⚠️ শুধু সচেতনতার জন্য। চিকিৎসার জন্য ডাক্তারের পরামর্শ নিন। জরুরি প্রয়োজনে ৯৯৯।</span><span lang="en">⚠️ For awareness only. See a doctor for treatment. Emergency: 999.</span> · <a href="#about"><span lang="bn">গোপনীয়তা ও সতর্কতা</span><span lang="en">Privacy & disclaimer</span></a> · © 2026 DocTalk-বাংলা<span class="vc" hidden> · 👁 <span lang="bn">মোট ভিজিট</span><span lang="en">Total visits</span>: <b data-visits>…</b></span></div>
+  <div class="disc"><span lang="bn">⚠️ শুধু সচেতনতার জন্য। চিকিৎসার জন্য ডাক্তারের পরামর্শ নিন। জরুরি প্রয়োজনে ৯৯৯।</span><span lang="en">⚠️ For awareness only. See a doctor for treatment. Emergency: 999.</span> · <a href="#about"><span lang="bn">গোপনীয়তা ও সতর্কতা</span><span lang="en">Privacy & disclaimer</span></a> · © 2026 DocTalk-বাংলা</div>
+  <div class="visit-bar vc" hidden>👁 <span lang="bn">মোট ভিজিটর</span><span lang="en">Total visitors</span>: <b data-visits>…</b></div>
 </div></footer>
 
 <dialog id="followDlg" class="follow-dlg" aria-labelledby="followT">
   <div class="fw">
-    <img src="img/logo.jpg" alt="DocTalk-বাংলা" class="fw-logo">
+    <div class="fw-logo"><svg class="" viewBox="0 0 120 120" width="58" height="58" aria-hidden="true"><defs><linearGradient id="grpp" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#3FE0CF"/></linearGradient>
+<linearGradient id="gxpp" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3FE0CF"/><stop offset="1" stop-color="#4FA3FF"/></linearGradient></defs>
+<path d="M93.63 69.29A38 38 0 1 1 50.71 26.37" fill="none" stroke="url(#grpp)" stroke-width="17" stroke-linecap="butt"/>
+<g fill="url(#gxpp)"><rect x="78" y="14" width="13" height="40" rx="2"/><rect x="64.5" y="27.5" width="40" height="13" rx="2"/></g></svg></div>
     <h3 id="followT"><span lang="bn">DocTalk-বাংলা-তে স্বাগতম!</span><span lang="en">Welcome to DocTalk-বাংলা!</span></h3>
-    <p><span lang="bn">প্রতিদিনের সহজ বাংলা স্বাস্থ্য ভিডিও, টিপস আর জরুরি স্বাস্থ্য সতর্কতা পেতে আমাদের ফেসবুক পেজ ফলো করুন। ফলো করলেই ওয়েবসাইট ব্যবহার করতে পারবেন।</span><span lang="en">Follow our Facebook page for daily Bangla health videos, tips and urgent health alerts. Follow to continue to the website.</span></p>
-    <p class="fw-count vc" hidden>👁 <b data-visits>…</b> <span lang="bn">বার দেখা হয়েছে</span><span lang="en">visits so far</span></p>
-    <div class="fw-plugin" id="fbPlugin"></div>
-    <p class="fw-count fc" hidden>🎉 <b data-follows>…</b> <span lang="bn">জন এই ওয়েবসাইট থেকে ফলো করেছেন</span><span lang="en">people followed from this website</span></p>
-    <p class="small muted fw-note" id="fwHint"><span lang="bn">উপরের <b>DocTalk-বাংলা</b> পেজে (বা <b>Follow</b> বাটনে) চাপ দিয়ে ফলো করুন, তারপর ওয়েবসাইট খুলে যাবে।</span><span lang="en">Tap the <b>DocTalk-বাংলা</b> page (or its <b>Follow</b> button) above to follow, then the website opens.</span></p>
-    <button class="btn y fw-btn" id="followDone" hidden>✅ <span lang="bn">ধন্যবাদ! ওয়েবসাইটে যান</span><span lang="en">Thanks! Continue to the website</span></button>
+    <p><span lang="bn">প্রতিদিনের সহজ বাংলা স্বাস্থ্য ভিডিও, টিপস আর জরুরি স্বাস্থ্য সতর্কতা পেতে আমাদের ফেসবুক পেজ ফলো করুন।</span><span lang="en">Follow our Facebook page for daily Bangla health videos, tips and urgent health alerts.</span></p>
+    <a class="fw-fb" id="followBtn" href="#">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4h-3V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>
+      <span lang="bn">ফলো করুন</span><span lang="en">Follow</span>
+    </a>
+    <p class="small muted fw-note"><span lang="bn">চাপ দিলে আমাদের ফেসবুক পেজ খুলবে, সেখানে <b>Follow</b> চাপুন। ফিরে এলে ওয়েবসাইট খোলা থাকবে।</span><span lang="en">Our Facebook page opens; tap <b>Follow</b> there. Come back and the website is ready.</span></p>
   </div>
 </dialog>
 <dialog id="dlg"><div class="dlg-top"><b id="dlgTitle"></b><button class="btn ghost" id="dlgClose">✕</button></div><div class="dlg" id="dlgBody"></div></dialog>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="app.js?v=11"></script>
+<script src="app.js?v=13"></script>
 </body>
 </html>
