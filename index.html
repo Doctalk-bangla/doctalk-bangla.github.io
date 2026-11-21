@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="bn" data-lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocTalk বাংলা — স্বাস্থ্যের কথা, সহজ বাংলায়</title>
+<meta name="description" content="DocTalk বাংলা: সহজ বাংলায় স্বাস্থ্য তথ্য, হেলথ ক্যালকুলেটর, কাছের হাসপাতাল খোঁজা, ল্যাব টেস্টের দাম, কোন রোগে কোন ডাক্তার, টিকার সময়সূচি।">
+<meta property="og:title" content="DocTalk বাংলা — স্বাস্থ্যের কথা, সহজ বাংলায়">
+<meta property="og:description" content="হেলথ টুলস, হাসপাতাল খোঁজা, ল্যাব টেস্টের দাম ও প্রতিদিনের স্বাস্থ্য টিপস।">
+<meta property="og:image" content="img/cover.jpg">
+<meta name="theme-color" content="#0b6466">
+<link rel="icon" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="#home"><img src="img/logo.jpg" alt=""><span>Doc<b>Talk</b> <span lang="bn">বাংলা</span><span lang="en">Bangla</span></span></a>
+  <button class="lang menu" id="menuBtn" aria-label="Menu">☰</button>
+  <div class="links" id="links">
+    <a href="#home"><span lang="bn">হোম</span><span lang="en">Home</span></a>
+    <a href="#health"><span lang="bn">রোগ ও প্রাথমিক চিকিৎসা</span><span lang="en">Health A–Z</span></a>
+    <a href="#tools"><span lang="bn">হেলথ টুলস</span><span lang="en">Health tools</span></a>
+    <a href="#find"><span lang="bn">হাসপাতাল খুঁজুন</span><span lang="en">Find care</span></a>
+    <a href="#doctor"><span lang="bn">কোন ডাক্তার?</span><span lang="en">Which doctor?</span></a>
+    <a href="#prices"><span lang="bn">টেস্টের দাম</span><span lang="en">Test prices</span></a>
+    <a href="#learn"><span lang="bn">শিখুন</span><span lang="en">Learn</span></a>
+    <a href="#about"><span lang="bn">আমাদের কথা</span><span lang="en">About</span></a>
+  </div>
+  <button class="lang" id="langBtn" aria-label="Language">English</button>
+</div></nav>
+
+<div class="alert"><div class="wrap">
+  <span class="tag"><span lang="bn">স্বাস্থ্য সতর্কতা</span><span lang="en">Health alert</span></span>
+  <span id="alertText"></span>
+</div></div>
+
+<main>
+<!-- HOME -->
+<section data-view="home">
+  <div class="hero"><div class="wrap">
+    <div>
+      <h1><span lang="bn">স্বাস্থ্যের কথা,<br>সহজ বাংলায়</span><span lang="en">Health made simple,<br>in Bangla</span></h1>
+      <p><span lang="bn">রোগ চিনুন, প্রতিরোধ জানুন, সুস্থ থাকুন। হেলথ ক্যালকুলেটর, কাছের হাসপাতাল, ল্যাব টেস্টের দাম আর প্রতিদিনের গবেষণাভিত্তিক স্বাস্থ্য তথ্য, সব এক জায়গায়।</span><span lang="en">Know the illness, learn prevention, stay healthy. Health calculators, nearby hospitals, lab test prices and research-based daily health tips, all in one place.</span></p>
+      <div class="cta">
+        <a class="btn y" href="#find"><span lang="bn">কাছের হাসপাতাল খুঁজুন</span><span lang="en">Find a hospital near you</span></a>
+        <a class="btn ghost" href="#tools"><span lang="bn">হেলথ টুলস</span><span lang="en">Health tools</span></a>
+      </div>
+      <div class="chips"><span lang="bn">WHO · DGHS · icddr,b সূত্রে যাচাই করা</span><span lang="en">Checked against WHO · DGHS · icddr,b</span><span>৬৪ <span lang="bn">জেলা</span><span lang="en">districts</span></span><span>৪৯৫ <span lang="bn">উপজেলা</span><span lang="en">upazilas</span></span></div>
+    </div>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 420 340">
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9f3f1"/></linearGradient></defs>
+        <circle cx="300" cy="70" r="90" fill="#ffffff" opacity=".07"/><circle cx="80" cy="280" r="70" fill="#ffc94a" opacity=".12"/>
+        <ellipse cx="210" cy="312" rx="150" ry="14" fill="#000" opacity=".15"/>
+        <path d="M70 60h280a34 34 0 0 1 34 34v130a34 34 0 0 1-34 34H170l-62 46 10-46H70a34 34 0 0 1-34-34V94a34 34 0 0 1 34-34z" fill="url(#g1)"/>
+        <path d="M70 60h280a34 34 0 0 1 34 34v8H36v-8a34 34 0 0 1 34-34z" fill="#fff" opacity=".6"/>
+        <polyline points="70,165 140,165 160,120 185,215 210,95 232,190 250,165 340,165" fill="none" stroke="#0b6466" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle class="beat" cx="340" cy="165" r="13" fill="#ff6b6b"/>
+        <g transform="translate(300,232)"><rect width="96" height="40" rx="20" fill="#ffc94a"/><text x="48" y="27" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="17" fill="#2a1f00">24/7</text></g>
+      </svg>
+    </div>
+  </div></div>
+
+  <div class="band"><div class="wrap">
+    <div class="sec-head"><h2><span lang="bn">আপনার জন্য যা আছে</span><span lang="en">What you can do here</span></h2></div>
+    <div class="grid" id="featureGrid"></div>
+  </div></div>
+
+  <div class="band" style="padding-top:0"><div class="wrap"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+    <div class="card" id="seasonCard"></div>
+    <div class="card"><h3><span lang="bn">জরুরি প্রাথমিক চিকিৎসা</span><span lang="en">First aid in an emergency</span></h3><div class="chips" id="faChips" style="margin-top:10px"></div></div>
+  </div></div></div>
+
+  <div class="band" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><h2><span lang="bn">সাম্প্রতিক স্বাস্থ্য পোস্ট</span><span lang="en">Latest health posts</span></h2><a class="btn ghost" href="#learn"><span lang="bn">সব পোস্ট</span><span lang="en">All posts</span></a></div>
+    <div class="grid" id="latestPosts"></div>
+  </div></div>
+</section>
+
+<!-- HEALTH A-Z -->
+<section data-view="health" class="band hidden"><div class="wrap">
+  <h2><span lang="bn">রোগ, প্রাথমিক চিকিৎসা ও সুস্থ জীবন</span><span lang="en">Diseases, first aid & healthy living</span></h2>
+  <p class="muted"><span lang="bn">বাংলাদেশে সবচেয়ে বেশি দেখা রোগ, বিপদ চিহ্ন, প্রাথমিক চিকিৎসা আর কখন কোন চেকআপ, সহজ ভাষায়।</span><span lang="en">Bangladesh's most common illnesses, danger signs, first aid and which check-up when, in plain words.</span></p>
+  <div class="tabs" id="hTabs"></div>
+  <div id="hBox"></div>
+</div></section>
+
+<!-- TOOLS -->
+<section data-view="tools" class="band hidden"><div class="wrap">
+  <h2><span lang="bn">হেলথ টুলস ও সেলফ-চেক</span><span lang="en">Health tools & self-checks</span></h2>
+  <p class="muted"><span lang="bn">এগুলো শুধু সচেতনতার জন্য, রোগ নির্ণয় নয়। ফলাফল নিয়ে চিন্তা থাকলে ডাক্তার দেখান।</span><span lang="en">For awareness only, not a diagnosis. See a doctor if a result worries you.</span></p>
+  <div class="tabs" id="toolTabs"></div>
+  <div class="card" id="toolBox"></div>
+</div></section>
+
+<!-- FIND CARE -->
+<section data-view="find" class="band hidden"><div class="wrap">
+  <h2><span lang="bn">কাছের হাসপাতাল, ক্লিনিক ও ফার্মেসি</span><span lang="en">Hospitals, clinics & pharmacies near you</span></h2>
+  <p class="muted"><span lang="bn">বিভাগ → জেলা → উপজেলা বেছে নিন, অথবা "আমার কাছে" চাপুন। তথ্য আসে OpenStreetMap থেকে; গ্রামের কিছু জায়গা বাদ পড়তে পারে।</span><span lang="en">Pick division → district → upazila, or tap "Near me". Data comes from OpenStreetMap; some rural places may be missing.</span></p>
+  <div class="card">
+    <div class="filters">
+      <div><label for="fDiv"><span lang="bn">বিভাগ</span><span lang="en">Division</span></label><select id="fDiv"></select></div>
+      <div><label for="fDist"><span lang="bn">জেলা</span><span lang="en">District</span></label><select id="fDist"></select></div>
+      <div><label for="fUpa"><span lang="bn">উপজেলা</span><span lang="en">Upazila</span></label><select id="fUpa"></select></div>
+      <div><label for="fType"><span lang="bn">ধরন</span><span lang="en">Type</span></label><select id="fType"></select></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="fGo"><span lang="bn">খুঁজুন</span><span lang="en">Search</span></button><button class="btn y" id="fMe"><span lang="bn">আমার কাছে</span><span lang="en">Near me</span></button></div>
+    </div>
+    <div class="finder"><div id="map"></div><div><p class="small muted" id="fStatus"></p><div class="places" id="fList"></div></div></div>
+  </div>
+  <div style="margin-top:28px"><h3><span lang="bn">বিশেষায়িত সরকারি হাসপাতাল</span><span lang="en">Specialised government hospitals</span></h3><p class="small muted"><span lang="bn">জটিল রোগে রেফার হলে এসব জাতীয় ইনস্টিটিউট ও মেডিকেল কলেজ হাসপাতালে যাওয়া হয়।</span><span lang="en">National institutes and medical college hospitals people are referred to for complex care.</span></p><input id="instSearch" aria-label="search" style="margin:8px 0 14px"><div class="grid" id="instGrid"></div></div>
+  <div class="band sos" style="margin-top:28px;border-radius:18px;padding:24px">
+    <h3><span lang="bn">জরুরি নম্বর</span><span lang="en">Emergency numbers</span></h3>
+    <div class="grid" id="sosGrid"></div>
+  </div>
+</div></section>
+
+<!-- WHICH DOCTOR -->
+<section data-view="doctor" class="band hidden"><div class="wrap">
+  <h2><span lang="bn">কোন সমস্যায় কোন ডাক্তার?</span><span lang="en">Which doctor for which problem?</span></h2>
+  <p class="muted"><span lang="bn">সমস্যা লিখে খুঁজুন। লাল চিহ্নের লক্ষণ থাকলে দেরি না করে হাসপাতালের জরুরি বিভাগে যান বা ৯৯৯-এ কল করুন।</span><span lang="en">Search your problem. If you have a red-flag sign, go to emergency or call 999 right away.</span></p>
+  <input id="docSearch" placeholder="যেমন: বুকে ব্যথা / chest pain" aria-label="search">
+  <div class="grid" id="docGrid" style="margin-top:18px"></div>
+</div></section>
+
+<!-- PRICES -->
+<section data-view="prices" class="band hidden"><div class="wrap">
+  <h2><span lang="bn">ল্যাব টেস্টের দাম: সরকারি বনাম বেসরকারি</span><span lang="en">Lab test prices: government vs private</span></h2>
+  <p class="muted" id="priceNote"></p>
+  <input id="priceSearch" placeholder="টেস্ট খুঁজুন / search a test" aria-label="search test" style="margin:12px 0 16px">
+  <div class="scroll"><table id="priceTable"></table></div>
+  <div class="note" id="priceSrc"></div>
+</div></section>
+
+<!-- LEARN -->
+<section data-view="learn" class="band hidden"><div class="wrap">
+  <h2><span lang="bn">শিখুন</span><span lang="en">Learn</span></h2>
+  <div class="tabs" id="learnTabs"></div>
+  <div id="learnBox"></div>
+</div></section>
+
+<!-- ABOUT -->
+<section data-view="about" class="band hidden"><div class="wrap" style="max-width:860px">
+  <h2><span lang="bn">DocTalk বাংলা সম্পর্কে</span><span lang="en">About DocTalk Bangla</span></h2>
+  <p><span lang="bn">DocTalk বাংলা একটি স্বাস্থ্য সচেতনতামূলক উদ্যোগ। আমরা সহজ বাংলায় রোগের লক্ষণ, কারণ, প্রতিরোধ ও সুস্থ জীবনযাপনের তথ্য তুলে ধরি। প্রতিটি তথ্য বিশ্ব স্বাস্থ্য সংস্থা (WHO), স্বাস্থ্য অধিদপ্তর (DGHS), icddr,b ও স্বীকৃত মেডিকেল সূত্র থেকে যাচাই করে দেওয়া হয়।</span><span lang="en">DocTalk Bangla is a health-awareness project. We explain symptoms, causes, prevention and healthy living in simple Bangla. Every fact is checked against WHO, the Directorate General of Health Services (DGHS), icddr,b and recognised medical sources.</span></p>
+  <div class="card" style="margin:20px 0"><h3><span lang="bn">গুরুত্বপূর্ণ সতর্কতা</span><span lang="en">Important disclaimer</span></h3>
+  <p><span lang="bn">এই ওয়েবসাইটের তথ্য শুধু সচেতনতা ও শিক্ষার জন্য। এটি ডাক্তারের পরামর্শ, রোগ নির্ণয় বা চিকিৎসার বিকল্প নয়। কোনো ওষুধ খাওয়ার আগে ডাক্তারের পরামর্শ নিন। জরুরি অবস্থায় নিকটস্থ হাসপাতালে যান বা ৯৯৯-এ কল করুন। টেস্টের দাম ও হাসপাতালের তথ্য বদলাতে পারে; যাওয়ার আগে ফোন করে নিশ্চিত হোন।</span><span lang="en">Information on this website is for awareness and education only. It is not a substitute for a doctor's advice, diagnosis or treatment. Consult a doctor before taking any medicine. In an emergency go to the nearest hospital or call 999. Test prices and hospital details can change; call to confirm before you go.</span></p></div>
+  <h3 id="privacy"><span lang="bn">গোপনীয়তা নীতি</span><span lang="en">Privacy policy</span></h3>
+  <p><span lang="bn">ক্যালকুলেটরে দেওয়া তথ্য আপনার ফোন বা কম্পিউটারেই থাকে, আমাদের কাছে পাঠানো হয় না। "আমার কাছে" চাপলে আপনার লোকেশন শুধু ম্যাপ দেখাতে ব্যবহার হয় এবং কোথাও সংরক্ষণ হয় না। সার্ভেতে দেওয়া উত্তর নাম ছাড়া সংরক্ষিত হয় এবং শুধু স্বাস্থ্য বিষয়ক কনটেন্ট তৈরিতে ব্যবহার হয়।</span><span lang="en">What you type into the calculators stays on your device and is not sent to us. "Near me" uses your location only to show the map and does not store it. Survey answers are stored without names and used only to plan health content.</span></p>
+  <h3><span lang="bn">যোগাযোগ</span><span lang="en">Contact</span></h3>
+  <p><span lang="bn">প্রশ্ন বা কোনো বিষয়ে ভিডিও চাইলে আমাদের ফেসবুক পেজে মেসেজ দিন।</span><span lang="en">For questions or topic requests, message our Facebook page.</span></p>
+  <p><a class="btn" data-fb href="#"><span lang="bn">ফেসবুক পেজ</span><span lang="en">Facebook page</span></a></p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><a class="brand" href="#home"><img src="img/logo.jpg" alt=""><span>Doc<b>Talk</b></span></a><p class="small"><span lang="bn">স্বাস্থ্যের কথা, সহজ বাংলায়।</span><span lang="en">Health made simple, in Bangla.</span></p></div>
+    <div><b><span lang="bn">টুলস</span><span lang="en">Tools</span></b><br><a href="#tools">BMI · <span lang="bn">ক্যালোরি</span><span lang="en">Calories</span></a><br><a href="#find"><span lang="bn">হাসপাতাল খোঁজা</span><span lang="en">Hospital finder</span></a><br><a href="#prices"><span lang="bn">টেস্টের দাম</span><span lang="en">Test prices</span></a></div>
+    <div><b><span lang="bn">জরুরি</span><span lang="en">Emergency</span></b><br>৯৯৯ · <span lang="bn">স্বাস্থ্য বাতায়ন</span><span lang="en">Health line</span> ১৬২৬৩</div>
+    <div><b><span lang="bn">ফলো করুন</span><span lang="en">Follow</span></b><br><a data-fb href="#">Facebook: DocTalk বাংলা</a></div>
+  </div>
+  <div class="disc"><span lang="bn">⚠️ শুধু সচেতনতার জন্য। চিকিৎসার জন্য ডাক্তারের পরামর্শ নিন। জরুরি প্রয়োজনে ৯৯৯।</span><span lang="en">⚠️ For awareness only. See a doctor for treatment. Emergency: 999.</span> · <a href="#about"><span lang="bn">গোপনীয়তা ও সতর্কতা</span><span lang="en">Privacy & disclaimer</span></a> · © 2026 DocTalk বাংলা</div>
+</div></footer>
+
+<dialog id="dlg"><div class="dlg-top"><b id="dlgTitle"></b><button class="btn ghost" id="dlgClose">✕</button></div><div class="dlg" id="dlgBody"></div></dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
