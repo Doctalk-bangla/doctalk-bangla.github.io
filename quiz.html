@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="bn" data-lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>স্বাস্থ্য কুইজ চ্যালেঞ্জ 🎁 জিতে নিন সারপ্রাইজ গিফট হ্যাম্পার — DocTalk-বাংলা</title>
+<meta name="description" content="১৫টি স্বাস্থ্য প্রশ্ন, প্রতিটিতে ১৫ সেকেন্ড। সবচেয়ে বেশি সঠিক ও সবচেয়ে দ্রুত উত্তরদাতা জিতবেন একটি সারপ্রাইজ গিফট হ্যাম্পার। একদম ফ্রি।">
+<meta property="og:title" content="স্বাস্থ্য কুইজ চ্যালেঞ্জ 🎁 আপনি কি পারবেন ১৫/১৫?">
+<meta property="og:description" content="১৫টি প্রশ্ন · প্রতিটিতে ১৫ সেকেন্ড · ১ জন বিজয়ী পাবেন সারপ্রাইজ গিফট হ্যাম্পার। একদম ফ্রি।">
+<meta property="og:image" content="https://doctalk-bangla.github.io/img/og-quiz.jpg">
+<meta property="og:url" content="https://doctalk-bangla.github.io/quiz.html">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F2A4F">
+<link rel="icon" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="quiz.css?v=1">
+</head>
+<body class="qz">
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="./" aria-label="DocTalk-বাংলা"><svg viewBox="0 0 120 120" width="36" height="36" aria-hidden="true"><defs><linearGradient id="grnv" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#3FE0CF"/></linearGradient><linearGradient id="gxnv" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3FE0CF"/><stop offset="1" stop-color="#4FA3FF"/></linearGradient></defs><path d="M93.63 69.29A38 38 0 1 1 50.71 26.37" fill="none" stroke="url(#grnv)" stroke-width="17"/><g fill="url(#gxnv)"><rect x="78" y="14" width="13" height="40" rx="2"/><rect x="64.5" y="27.5" width="40" height="13" rx="2"/></g></svg><span class="wm">DocTalk<em>-বাংলা</em></span></a>
+  <a class="lang" href="#board" data-go="board">🏆 লিডারবোর্ড</a>
+</div></nav>
+
+<main>
+<!-- ============ LANDING ============ -->
+<section class="qhero" data-screen="home">
+  <div class="wrap qhero-in">
+    <div class="qhero-txt">
+      <span class="chip">🩺 ১৫ দিনের স্বাস্থ্য কুইজ চ্যালেঞ্জ <b id="cycleNo"></b></span>
+      <h1>১৫টি প্রশ্ন। <span class="gr">১ জন বিজয়ী।</span><br>একটি রহস্যময় গিফট হ্যাম্পার! 🎁</h1>
+      <p class="lead">সাধারণ স্বাস্থ্য জ্ঞানের প্রশ্ন, প্রতিটিতে মাত্র <b>১৫ সেকেন্ড</b>। সবচেয়ে বেশি সঠিক উত্তর, আর সমান হলে সবচেয়ে কম সময়ে যিনি দেবেন, তিনিই জিতবেন। <b>অংশগ্রহণ একদম ফ্রি।</b></p>
+      <div class="cd" id="countdown" aria-live="polite">
+        <div><b data-cd="d">--</b><span>দিন</span></div><div><b data-cd="h">--</b><span>ঘণ্টা</span></div><div><b data-cd="m">--</b><span>মিনিট</span></div><div><b data-cd="s">--</b><span>সেকেন্ড</span></div>
+      </div>
+      <p class="cd-label" id="cdLabel">প্রতিযোগিতা শেষ হতে বাকি</p>
+      <div class="qcta">
+        <button class="btn y big" data-go="form" id="playBtn">▶ কুইজ শুরু করুন</button>
+        <button class="btn ghost" data-go="board">🏆 লিডারবোর্ড</button>
+      </div>
+      <p class="players" id="playersLine" hidden>এখন পর্যন্ত <b id="playersN">০</b> জন খেলেছেন</p>
+    </div>
+    <div class="gift" aria-hidden="true">
+      <div class="gift-glow"></div>
+      <svg viewBox="0 0 240 240" class="gift-svg">
+        <defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1C6FD1"/><stop offset="1" stop-color="#16B6A8"/></linearGradient>
+        <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#3FE0CF"/></linearGradient></defs>
+        <rect x="40" y="110" width="160" height="110" rx="10" fill="url(#gb)"/>
+        <g class="lid"><rect x="30" y="80" width="180" height="40" rx="8" fill="url(#gl)"/>
+          <path d="M120 80c-20-38-62-40-58-14 3 18 40 16 58 14zM120 80c20-38 62-40 58-14-3 18-40 16-58 14z" fill="#FFC94A"/></g>
+        <rect x="108" y="80" width="24" height="140" fill="#FFC94A"/>
+        <text x="120" y="182" text-anchor="middle" font-size="64" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans,sans-serif">?</text>
+      </svg>
+      <p class="gift-cap">সারপ্রাইজ গিফট হ্যাম্পার<br><small>কী আছে ভেতরে? জিতলেই জানবেন 😉</small></p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap band" data-screen="home">
+  <h2 class="ctr">কীভাবে খেলবেন</h2>
+  <div class="steps">
+    <div class="step"><i>১</i><h3>নাম ও নম্বর দিন</h3><p>পুরস্কার পাঠাতে শুধু আপনার নাম, মোবাইল নম্বর আর জেলা লাগবে। কোনো লগইন নেই।</p></div>
+    <div class="step"><i>২</i><h3>১৫টি প্রশ্নের উত্তর দিন</h3><p>প্রতিটি প্রশ্নে ১৫ সেকেন্ড। একটার পর একটা প্রশ্ন আসবে, আগের প্রশ্নে ফেরা যাবে না।</p></div>
+    <div class="step"><i>৩</i><h3>লিডারবোর্ডে নাম তুলুন</h3><p>স্কোর আর সময় সাথে সাথে লিডারবোর্ডে উঠে যাবে। শেষ দিনে ১ নম্বরে যিনি, গিফট তাঁর!</p></div>
+  </div>
+
+  <details class="rules" id="rules">
+    <summary>📜 প্রতিযোগিতার নিয়মাবলি (পড়ে নিন)</summary>
+    <ol>
+      <li>বাংলাদেশে বসবাসকারী যে কেউ অংশ নিতে পারবেন। অংশগ্রহণ সম্পূর্ণ ফ্রি।</li>
+      <li>প্রতিটি মোবাইল নম্বর দিয়ে প্রতি প্রতিযোগিতায় <b>মাত্র একবার</b> খেলা যাবে। একটি ডিভাইস থেকে সর্বোচ্চ ২টি নম্বর।</li>
+      <li>মোট ১৫টি প্রশ্ন (সহজ থেকে কঠিন), প্রতিটিতে ১৫ সেকেন্ড। সময় শেষ হলে উত্তর বাতিল।</li>
+      <li>খেলার মাঝে অন্য অ্যাপ/ট্যাবে গেলে বা পেজ ছেড়ে গেলে সেই প্রশ্নের উত্তর বাতিল ধরা হবে।</li>
+      <li><b>বিজয়ী নির্বাচন:</b> সবচেয়ে বেশি সঠিক উত্তর → সমান হলে সবচেয়ে কম মোট সময় → তাও হুবহু সমান হলে লটারির মাধ্যমে <b>১ জন</b> বিজয়ী।</li>
+      <li>অস্বাভাবিক দ্রুত উত্তর, বট/স্ক্রিপ্ট, AI বা অন্য কারো সাহায্য, একাধিক ভুয়া নম্বর ব্যবহার ধরা পড়লে অংশগ্রহণ বাতিল হবে।</li>
+      <li>প্রতিযোগিতা শেষ হওয়ার পর বিজয়ীর নাম (নামের প্রথম অংশ ও নম্বরের শেষ ৩ সংখ্যা) DocTalk-বাংলা ফেসবুক পেজে ঘোষণা করা হবে এবং ফোনে যোগাযোগ করা হবে। ৪৮ ঘণ্টার মধ্যে সাড়া না দিলে পরবর্তী জনকে বিজয়ী করা হবে।</li>
+      <li>গিফট হ্যাম্পার বাংলাদেশের যেকোনো ঠিকানায় কুরিয়ারে ফ্রি পাঠানো হবে। পুরস্কার নগদ টাকায় বদলানো যাবে না।</li>
+      <li>আপনার নম্বর শুধু বিজয়ীর সাথে যোগাযোগের জন্য ব্যবহার হবে; কারো সাথে শেয়ার করা হবে না।</li>
+      <li>যেকোনো বিষয়ে DocTalk-বাংলার সিদ্ধান্ত চূড়ান্ত।</li>
+      <li>এই প্রতিযোগিতা Facebook/Meta দ্বারা পরিচালিত, স্পন্সরকৃত বা অনুমোদিত নয়।</li>
+    </ol>
+  </details>
+</section>
+
+<!-- ============ FORM ============ -->
+<section class="wrap band narrow" data-screen="form" hidden>
+  <div class="card qcard">
+    <h2>আপনার তথ্য দিন</h2>
+    <p class="muted small">বিজয়ী হলে এই নম্বরে ফোন করে গিফট পাঠানো হবে।</p>
+    <form id="joinForm" autocomplete="on" novalidate>
+      <label>আপনার নাম<input name="name" required maxlength="40" placeholder="যেমন: রাকিব হাসান" autocomplete="name"></label>
+      <label>মোবাইল নম্বর<input name="phone" required inputmode="numeric" maxlength="14" placeholder="01XXXXXXXXX" autocomplete="tel"></label>
+      <label>জেলা<select name="district" id="distSel" required><option value="">জেলা বেছে নিন</option></select></label>
+      <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+      <div class="warn">
+        <b>⚠️ শুরু করার আগে জেনে নিন</b>
+        <ul><li>প্রতিটি প্রশ্নে <b>১৫ সেকেন্ড</b>, আগের প্রশ্নে ফেরা যাবে না।</li>
+        <li>খেলার মাঝে অন্য অ্যাপ বা ট্যাবে গেলে সেই প্রশ্ন <b>বাতিল</b>।</li>
+        <li>একবারই খেলতে পারবেন, ভালো ইন্টারনেট সংযোগে খেলুন।</li></ul>
+      </div>
+      <label class="chk"><input type="checkbox" name="agree" required> আমি <a href="#rules" data-go="rules">নিয়মাবলি</a> পড়েছি ও মেনে নিচ্ছি</label>
+      <p class="err" id="formErr" role="alert"></p>
+      <button class="btn y big full" id="startBtn" type="submit">শুরু করুন ▶</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ PLAY ============ -->
+<section class="wrap band narrow play" data-screen="play" hidden>
+  <div class="ready" id="ready"><p>প্রস্তুত হন…</p><b id="readyN">৩</b></div>
+  <div class="qbox" id="qbox" hidden>
+    <div class="qtop"><span id="qNo">প্রশ্ন ১/১৫</span><span class="tmr" id="tmr">১৫</span></div>
+    <div class="bar"><i id="barFill"></i></div>
+    <canvas id="qCanvas" class="qtext" aria-label="প্রশ্ন"></canvas>
+    <div class="opts" id="opts"></div>
+    <p class="leftwarn" id="leftWarn" hidden>⚠️ আপনি পেজ ছেড়ে গিয়েছিলেন, এই প্রশ্নটি বাতিল হবে।</p>
+  </div>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section class="wrap band narrow" data-screen="result" hidden>
+  <div class="card qcard ctr">
+    <p class="chip dark">আপনার ফলাফল</p>
+    <div class="score"><b id="rScore">০</b><span>/১৫</span></div>
+    <p class="rmeta">সময়: <b id="rTime">০</b> সেকেন্ড · অবস্থান: <b id="rRank">-</b></p>
+    <p id="rMsg" class="rmsg"></p>
+    <img id="shareImg" class="shareimg" alt="আপনার স্কোর কার্ড">
+    <div class="qcta col">
+      <button class="btn y big full" id="shareBtn">📤 স্কোর শেয়ার করুন</button>
+      <a class="btn fb full" id="fbShare" target="_blank" rel="noopener">Facebook-এ শেয়ার করুন</a>
+      <button class="btn ghost full" data-go="board">🏆 লিডারবোর্ড দেখুন</button>
+    </div>
+    <p class="muted small">বিজয়ীর নাম ঘোষণা হবে আমাদের ফেসবুক পেজে। <a data-fb href="#">পেজটি ফলো করে রাখুন</a>, যাতে ঘোষণা মিস না হয়।</p>
+  </div>
+</section>
+
+<!-- ============ BOARD ============ -->
+<section class="wrap band narrow" data-screen="board" hidden>
+  <div class="card qcard">
+    <div class="bhead"><h2>🏆 লিডারবোর্ড</h2><span class="muted small" id="bUpd"></span></div>
+    <p class="muted small">সর্বোচ্চ স্কোর, সমান হলে কম সময় আগে। প্রতি ৩০ সেকেন্ডে আপডেট হয়।</p>
+    <ol class="board" id="board"><li class="muted">লোড হচ্ছে…</li></ol>
+    <div class="qcta col"><button class="btn y full" data-go="form" id="boardPlay">▶ আমিও খেলব</button><button class="btn ghost full" data-go="home">← কুইজের পাতা</button></div>
+  </div>
+</section>
+
+<section class="wrap band narrow" data-screen="closed" hidden>
+  <div class="card qcard ctr"><h2 id="closedT">প্রতিযোগিতা এখন বন্ধ</h2><p id="closedP" class="muted">নতুন কুইজ শিগগিরই শুরু হবে। খবর পেতে আমাদের ফেসবুক পেজ ফলো করুন।</p>
+  <div class="qcta col"><a class="btn y full" data-fb href="#">ফেসবুক পেজ</a><button class="btn ghost full" data-go="board">🏆 লিডারবোর্ড</button></div></div>
+</section>
+</main>
+
+<footer class="qfoot"><div class="wrap small">© ২০২৬ DocTalk-বাংলা · <a href="./">হোম</a> · <a href="#rules" data-go="rules">নিয়মাবলি</a> · এই প্রতিযোগিতা Facebook/Meta দ্বারা পরিচালিত বা স্পন্সরকৃত নয়।</div></footer>
+
+<!-- same follow popup as the main site -->
+<dialog id="followDlg" class="follow-dlg" aria-labelledby="followT">
+  <div class="fw">
+    <div class="fw-logo"><svg viewBox="0 0 120 120" width="58" height="58" aria-hidden="true"><defs><linearGradient id="grpp" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#3FE0CF"/></linearGradient><linearGradient id="gxpp" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3FE0CF"/><stop offset="1" stop-color="#4FA3FF"/></linearGradient></defs><path d="M93.63 69.29A38 38 0 1 1 50.71 26.37" fill="none" stroke="url(#grpp)" stroke-width="17"/><g fill="url(#gxpp)"><rect x="78" y="14" width="13" height="40" rx="2"/><rect x="64.5" y="27.5" width="40" height="13" rx="2"/></g></svg></div>
+    <h3 id="followT">DocTalk-বাংলা-তে স্বাগতম!</h3>
+    <p>প্রতিদিনের সহজ বাংলা স্বাস্থ্য ভিডিও, টিপস আর জরুরি স্বাস্থ্য সতর্কতা পেতে আমাদের ফেসবুক পেজ ফলো করুন।</p>
+    <a class="fw-fb" id="followBtn" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4h-3V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>ফলো করুন</a>
+    <p class="small muted fw-note">ফেসবুক পেজে <b>Follow</b> চেপে এই পেজে ফিরে আসুন, কুইজ খোলা থাকবে।</p>
+  </div>
+</dialog>
+
+<script src="quiz.js?v=1"></script>
+</body>
+</html>
