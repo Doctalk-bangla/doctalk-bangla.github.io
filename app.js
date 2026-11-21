@@ -39,7 +39,8 @@ $$('[data-fb]').forEach((a) => { a.href = CONFIG.FB_URL; a.target = '_blank'; a.
 
 // ===== data =====
 const DATA = { posts: [], geo: null, prices: null, alerts: null, lib: null };
-const getJSON = (u) => fetch(u).then((r) => r.json()).catch(() => null);
+const DATA_V = '20261121c';
+const getJSON = (u) => fetch(u + (u.includes('?') ? '&' : '?') + 'v=' + DATA_V).then((r) => r.json()).catch(() => null);
 
 // ===== alerts =====
 function renderAlerts() {
