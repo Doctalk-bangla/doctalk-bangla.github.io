@@ -25,14 +25,14 @@ h2{font-size:clamp(26px,3.4vw,36px)}h3{font-size:19px}
 .brand img{width:40px;height:40px;border-radius:12px}
 .brand b{color:var(--yel)}
 .links{display:flex;gap:4px;flex-wrap:wrap}
-.links a{color:#dff3f1;text-decoration:none;padding:10px 12px;border-radius:10px;font-weight:600;font-size:15px}
+.links a{color:#dff3f1;text-decoration:none;padding:10px 10px;border-radius:10px;font-weight:600;font-size:15px}
 .links a:hover,.links a.on{background:rgba(255,255,255,.14);color:#fff}
 .btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;border:0;font:600 16px inherit;font-family:inherit;cursor:pointer;text-decoration:none;background:var(--teal2);color:#fff}
 .btn.y{background:var(--yel);color:#2a1f00}.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}
 .btn:focus-visible,input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
 .lang{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:10px;min-height:40px;padding:6px 12px;font:600 15px inherit;font-family:inherit;cursor:pointer}
 .menu{display:none}
-@media(max-width:860px){.menu{display:inline-flex}.links{display:none;width:100%;padding-bottom:10px}.links.open{display:flex}}
+@media(max-width:1240px){.menu{display:inline-flex}.links{display:none;width:100%;padding-bottom:10px}.links.open{display:flex}}
 /* alert */
 .alert{background:var(--yel);color:#2a1f00;font-weight:600}
 .alert .wrap{display:flex;gap:12px;align-items:center;padding-block:10px;flex-wrap:wrap}
@@ -124,3 +124,5 @@ footer a{color:#fff}
 .do{background:#e3f6e9;color:#14502a;border-radius:12px;padding:12px}.dont{background:#fde6e4;color:#6d1611;border-radius:12px;padding:12px}
 .aqi td:first-child{font-weight:700;white-space:nowrap}
 .sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:6px}
+.nav .wrap{max-width:1440px}
+@media(min-width:1241px){.links a{font-size:14px;padding:10px 9px}}

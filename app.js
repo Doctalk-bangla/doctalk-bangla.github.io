@@ -1,7 +1,7 @@
 {
 // ===== settings (edit these) =====
 const CONFIG = {
-  FB_URL: 'https://www.facebook.com/DocTalkBangla',   // Facebook page link
+  FB_URL: 'https://www.facebook.com/profile.php?id=61596380207663',   // Facebook page link
   SURVEY_URL: ''                                      // Google Apps Script web-app URL (survey answers -> Google Sheet)
 };
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -287,7 +287,7 @@ function renderLearn() {
   else if (curLearn === 'survey') { B.innerHTML = `<form class="card" id="sv" style="max-width:720px"><h3>${L('২ মিনিটের স্বাস্থ্য সার্ভে', '2-minute health survey')}</h3><p class="small muted">${L('নাম লাগবে না। উত্তরগুলো আমাদের পরবর্তী কনটেন্ট ঠিক করতে সাহায্য করবে।', 'No name needed. Your answers help us plan content.')}</p>${SURVEY.map(([id, qb, qe, opts]) => `<fieldset style="border:0;padding:0;margin:14px 0"><legend><b>${L(qb, qe)}</b></legend>${opts.map((o, i) => `<label style="font-weight:400;display:flex;gap:10px;align-items:center;min-height:40px"><input type="radio" name="${id}" value="${o[1]}" style="width:auto;min-height:0" ${i ? '' : 'required'}> ${L(o[0], o[1])}</label>`).join('')}</fieldset>`).join('')}<button class="btn" ${CONFIG.SURVEY_URL ? '' : 'disabled'}>${L('জমা দিন', 'Submit')}</button><p id="svmsg" class="small">${CONFIG.SURVEY_URL ? '' : L('সার্ভে খুব শিগগিরই চালু হচ্ছে।', 'The survey opens very soon.')}</p></form>`;
     $('#sv').addEventListener('submit', async (e) => { e.preventDefault(); if (!CONFIG.SURVEY_URL) return; const fd = new FormData(e.target); fd.append('lang', document.documentElement.dataset.lang); fd.append('ts', new Date().toISOString());
       try { await fetch(CONFIG.SURVEY_URL, { method: 'POST', mode: 'no-cors', body: fd }); $('#svmsg').innerHTML = L('ধন্যবাদ! আপনার উত্তর জমা হয়েছে।', 'Thank you! Your answers were submitted.'); e.target.querySelector('button').disabled = true; } catch (err) { $('#svmsg').innerHTML = L('জমা হয়নি, আবার চেষ্টা করুন।', 'Not submitted, please try again.'); } }); }
-  else if (curLearn === 'video') B.innerHTML = `<div class="grid">${[['ডেঙ্গু: লক্ষণ, বিপদ চিহ্ন, প্রতিরোধ', 'Dengue: signs, danger signs, prevention'], ['শীতে শিশুর নিউমোনিয়া', 'Child pneumonia in winter'], ['হাম: লক্ষণ, বিপদ চিহ্ন, টিকা', 'Measles: signs, danger signs, vaccine'], ['স্ট্রোক: F.A.S.T. ও প্রথমে করণীয়', 'Stroke: F.A.S.T. and first steps']].map(([b, e]) => `<a class="card link" target="_blank" rel="noopener" href="${CONFIG.FB_URL}/videos" style="text-decoration:none;color:inherit"><div class="ico">▶</div><h3>${L(b, e)}</h3><p class="small muted" style="margin:0">${L('ফেসবুকে দেখুন', 'Watch on Facebook')}</p></a>`).join('')}</div>`;
+  else if (curLearn === 'video') B.innerHTML = `<div class="grid">${[['ডেঙ্গু: লক্ষণ, বিপদ চিহ্ন, প্রতিরোধ', 'Dengue: signs, danger signs, prevention'], ['শীতে শিশুর নিউমোনিয়া', 'Child pneumonia in winter'], ['হাম: লক্ষণ, বিপদ চিহ্ন, টিকা', 'Measles: signs, danger signs, vaccine'], ['স্ট্রোক: F.A.S.T. ও প্রথমে করণীয়', 'Stroke: F.A.S.T. and first steps']].map(([b, e]) => `<a class="card link" target="_blank" rel="noopener" href="${CONFIG.FB_URL}${CONFIG.FB_URL.includes('?') ? '&sk=videos' : '/videos'}" style="text-decoration:none;color:inherit"><div class="ico">▶</div><h3>${L(b, e)}</h3><p class="small muted" style="margin:0">${L('ফেসবুকে দেখুন', 'Watch on Facebook')}</p></a>`).join('')}</div>`;
 }
 
 // ===== health A-Z =====
