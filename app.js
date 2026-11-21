@@ -374,6 +374,6 @@ if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.i
   });
   done.addEventListener('click', () => dlg.close());
   dlg.addEventListener('cancel', (e) => e.preventDefault());   // Esc can't close it
-  setTimeout(() => { try { dlg.showModal(); } catch (e) {} }, 1200);
+  setTimeout(() => { try { dlg.showModal(); const f = dlg.querySelector('.fw'); f.tabIndex = -1; f.focus(); } catch (e) {} }, 1200);   // keep focus off the Facebook frame until the visitor taps it
 })();
 }
