@@ -222,7 +222,7 @@ const DOCS = [
   ['ক্যান্সার বিশেষজ্ঞ (অনকোলজিস্ট)', 'Oncologist', 'ক্যান্সার শনাক্ত হলে চিকিৎসা ও পরামর্শ', 'Treatment and advice after a cancer diagnosis', 'cancer tumor tumour chaka', 'অকারণে ওজন কমা, চাকা বা গোটা যা বড় হচ্ছে: ডাক্তার দেখান', 'Unexplained weight loss, a growing lump: see a doctor']
 ];
 function renderDocs() { const q = ($('#docSearch').value || '').toLowerCase().trim();
-  $('#docGrid').innerHTML = DOCS.filter((d) => !q || (d.join(' ').toLowerCase().includes(q))).map((d) => `<div class="card"><div class="ico">${ICON.doc}</div><h3>${L(d[0], d[1])}</h3><p class="small">${L(d[2], d[3])}</p><p class="small" style="color:var(--red);margin:0"><b>⚠ ${L('বিপদ চিহ্ন:', 'Red flag:')}</b> ${L(d[5], d[6])}</p></div>`).join('') || `<p class="muted">${L('মেলেনি। মেডিসিন বিশেষজ্ঞ দিয়ে শুরু করুন।', 'No match. Start with a medicine specialist.')}</p>`; }
+  const qw = q.split(/\s+/).filter(Boolean).map((w) => w.replace(/(ে|য়|তে|র|এ)$/, '')); $('#docGrid').innerHTML = DOCS.filter((d) => { const h = d.join(' ').toLowerCase(); return !qw.length || qw.every((w) => h.includes(w)); }).map((d) => `<div class="card"><div class="ico">${ICON.doc}</div><h3>${L(d[0], d[1])}</h3><p class="small">${L(d[2], d[3])}</p><p class="small" style="color:var(--red);margin:0"><b>⚠ ${L('বিপদ চিহ্ন:', 'Red flag:')}</b> ${L(d[5], d[6])}</p></div>`).join('') || `<p class="muted">${L('মেলেনি। মেডিসিন বিশেষজ্ঞ দিয়ে শুরু করুন।', 'No match. Start with a medicine specialist.')}</p>`; }
 $('#docSearch').addEventListener('input', renderDocs);
 
 // ===== prices =====
