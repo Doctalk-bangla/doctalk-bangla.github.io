@@ -253,20 +253,6 @@ async function loadBoard() {
 }
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-// ===== follow popup (same as main site) =====
-(function followGate() {
-  const dlg = $('#followDlg'), btn = $('#followBtn');
-  if (!dlg || store.get('fb_followed', false)) return;
-  btn.href = FB_URL; btn.target = '_blank'; btn.rel = 'noopener';
-  btn.addEventListener('click', () => {
-    store.set('fb_followed', true);
-    try { fetch('https://countapi.mileshilliard.com/api/v1/hit/doctalk-bangla-follow-clicks', { keepalive: true }); } catch (err) {}
-    setTimeout(() => dlg.close(), 100);
-  });
-  dlg.addEventListener('cancel', (e) => e.preventDefault());
-  setTimeout(() => { try { dlg.showModal(); } catch (e) {} }, 1200);
-})();
-
 // quiz page visits (same free counter as the site)
 try { if (!store.get('qz_vc', false)) { fetch('https://countapi.mileshilliard.com/api/v1/hit/doctalk-bangla-quiz-visits'); store.set('qz_vc', true); } } catch (e) {}
 
