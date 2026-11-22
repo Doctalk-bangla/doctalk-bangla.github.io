@@ -186,6 +186,17 @@ function finish(r) {
   renderResult(res, true); show('result');
 }
 function renderResult(res, fresh) {
+  // result stays blurred until the player taps Follow on this round's result screen
+  const gateKey = 'qz_fr_' + res.cycle, card = $('#rCard');
+  if (!store.get(gateKey, false)) {
+    card.classList.add('locked');
+    const gb = $('#fGateBtn'); gb.href = FB_URL;
+    gb.onclick = () => {
+      store.set(gateKey, true); store.set('fb_followed', true);
+      try { fetch('https://countapi.mileshilliard.com/api/v1/hit/doctalk-bangla-quiz-follow', { keepalive: true }); } catch (e) {}
+      setTimeout(() => { card.classList.remove('locked'); card.classList.add('reveal'); }, 1200);
+    };
+  } else card.classList.remove('locked');
   $('#rScore').textContent = bn(res.score); $('.score span').textContent = '/' + bn(res.total || 15);
   $('#rTime').textContent = bn(res.timeSec); $('#rRank').textContent = res.rank ? ord(res.rank) + (res.players ? ` (${bn(res.players)} জনের মধ্যে)` : '') : '-';
   const s = res.score;
