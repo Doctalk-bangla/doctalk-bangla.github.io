@@ -71,7 +71,7 @@
   <p>আপনার বয়স ৩০ হতে পারে, কিন্তু হার্টের বয়স ৪৫! ৯টি সহজ প্রশ্নে জেনে নিন আপনার হার্ট আপনার চেয়ে কতটা "বুড়ো"।</p>
   <div class="pills"><span>⏱️ ৩০ সেকেন্ড</span><span>🔒 কোনো তথ্য সংরক্ষণ হয় না</span><span>🔬 Framingham হার্ট স্টাডি</span></div>
   <button class="go" id="start">▶ টেস্ট শুরু করুন</button>
-  <p class="hsmall" style="margin-top:14px">৩০ থেকে ৭৪ বছর বয়সীদের জন্য। বয়স কম হলে মা-বাবার জন্য করে দেখুন।</p>
+  <p class="hsmall" style="margin-top:14px">১৮ বছর বা তার বেশি সবার জন্য। মা-বাবার জন্যও করে দেখুন।</p>
 </section>
 
 <section id="quiz" hidden>
@@ -86,8 +86,8 @@
 
 <section id="young" class="hhero" hidden>
   <div style="font-size:64px">👨‍👩‍👦</div>
-  <h1 style="font-size:32px">এই টেস্ট ৩০+ বয়সীদের জন্য</h1>
-  <p>যে গবেষণার ভিত্তিতে হিসাব করা হয়, সেটা ৩০ থেকে ৭৪ বছর বয়সীদের ওপর করা। আপনার মা, বাবা বা বাসার বড়দের জন্য টেস্টটা করে দেখুন, ওদের প্রেশারের সংখ্যাটা জেনে নিন।</p>
+  <h1 style="font-size:32px">এই টেস্ট ১৮+ বয়সীদের জন্য</h1>
+  <p>শিশু-কিশোরদের ওজন আর প্রেশারের হিসাব বড়দের থেকে আলাদা, তাই এই টেস্ট ওদের জন্য ঠিক না। আপনার মা, বাবা বা বাসার বড়দের জন্য টেস্টটা করে দেখুন।</p>
   <button class="go" id="again1">↺ বড়দের জন্য টেস্ট করুন</button>
 </section>
 
@@ -145,7 +145,7 @@ function render(){
  const box=$('qa');box.innerHTML='';
  if(q.o){const d=document.createElement('div');d.className='opts';q.o.forEach(([e,l,v])=>{const b=document.createElement('button');b.type='button';b.innerHTML='<span>'+e+'</span>'+l;b.onclick=()=>{A[q.k]=v;if(q.k==='sbp')A.sbpKnown=v!==0;next();};d.appendChild(b);});box.appendChild(d);}
  else if(q.num==='age'){box.innerHTML='<div class="num"><label>বয়স (বছর)<input id="in_age" type="text" inputmode="numeric" autocomplete="off" min="18" max="100" placeholder="যেমন ৪২" value="'+(A.age||'')+'"></label></div><p style="margin-top:16px"><button class="go" id="ok">পরের প্রশ্ন →</button></p>';
-   const f=()=>{let v=+toEn($('in_age').value);if(!v||v<15||v>100){$('err').textContent='সঠিক বয়স লিখুন';return;}A.age=v;if(v<30){show('young');return;}next();};$('ok').onclick=f;$('in_age').onkeydown=e=>{if(e.key==='Enter')f();};$('in_age').focus();}
+   const f=()=>{let v=+toEn($('in_age').value);if(!v||v<15||v>100){$('err').textContent='সঠিক বয়স লিখুন';return;}A.age=v;if(v<18){show('young');return;}next();};$('ok').onclick=f;$('in_age').onkeydown=e=>{if(e.key==='Enter')f();};$('in_age').focus();}
  else{const ft=[4,5,6,7].map(x=>'<option'+(x===(A.ft||5)?' selected':'')+' value="'+x+'">'+bn(x)+' ফুট</option>').join(''),inch=[...Array(12).keys()].map(x=>'<option'+(x===(A.inch??4)?' selected':'')+' value="'+x+'">'+bn(x)+' ইঞ্চি</option>').join('');
    box.innerHTML='<div class="num"><label>উচ্চতা<select id="in_ft">'+ft+'</select></label><label>&nbsp;<select id="in_in">'+inch+'</select></label></div><div class="num" style="margin-top:12px"><label>ওজন (কেজি)<input id="in_w" type="text" inputmode="numeric" autocomplete="off" min="25" max="250" placeholder="যেমন ৬৫" value="'+(A.w||'')+'"></label></div><p style="margin-top:16px"><button class="go" id="ok">পরের প্রশ্ন →</button></p>';
    const f=()=>{const ftv=+$('in_ft').value,inv=+$('in_in').value,w=+toEn($('in_w').value);if(!w||w<25||w>250){$('err').textContent='সঠিক ওজন লিখুন (কেজি)';return;}const m=(ftv*12+inv)*0.0254;A.ft=ftv;A.inch=inv;A.w=w;A.bmi=w/(m*m);next();};$('ok').onclick=f;$('in_w').onkeydown=e=>{if(e.key==='Enter')f();};}
@@ -158,9 +158,9 @@ $('again').onclick=$('again1').onclick=()=>{for(const k in A)delete A[k];i=0;sho
 
 function finish(){
  $('prog').style.width='100%';
- const a={sex:A.sex,age:Math.min(A.age,74),bmi:Math.min(Math.max(A.bmi,15),50),sbp:A.sbpKnown?A.sbp:130,med:A.med,smk:A.smk,dm:A.dm};
+ const a={sex:A.sex,age:Math.min(Math.max(A.age,18),95),bmi:Math.min(Math.max(A.bmi,15),50),sbp:A.sbpKnown?A.sbp:130,med:A.med,smk:A.smk,dm:A.dm};
  const ha=heartAge(a),r=risk(a);
- const real=A.age, hShow=ha<30?'৩০-এর কম':(ha>85?'৮৫+':bn(Math.round(ha))), diff=Math.round(ha)-real;
+ const real=A.age, hShow=ha<18?'১৮-এর কম':(ha>95?'৯৫+':bn(Math.round(ha))), diff=Math.round(ha)-real;
  // contributions: heart-age years added by each factor
  const base=heartAge({...a});const parts=[];
  const tryFix=(lab,mod)=>{const d=base-heartAge({...a,...mod});if(d>=1)parts.push([d,lab]);};
@@ -171,7 +171,7 @@ function finish(){
  parts.sort((x,y)=>y[0]-x[0]);
  drawCard({hShow,real,diff,r,parts,ha});
  const fb='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(URL_);$('fbShare').href=fb;
- $('why').innerHTML='<h3>🔎 কোন কারণে হার্টের বয়স বেশি?</h3>'+(parts.length?'<ul>'+parts.map(p=>'<li><b>'+p[1]+'</b>: প্রায় '+bn(Math.round(p[0]))+' বছর বাড়িয়েছে</li>').join('')+'</ul>':'<p>দারুণ! প্রেশার, ওজন, ধূমপান বা ডায়াবেটিস আপনার হার্টের বয়স তেমন বাড়ায়নি। এই অভ্যাস ধরে রাখুন।</p>')+(A.sbpKnown?'':'<p class="hsmall">⚠️ প্রেশার জানা না থাকায় ১৩০ ধরে হিসাব করা হয়েছে। কাছের ফার্মেসি বা কমিউনিটি ক্লিনিকে মেপে আবার টেস্ট করুন, রেজাল্ট বদলে যেতে পারে।</p>');
+ $('why').innerHTML='<h3>🔎 কোন কারণে হার্টের বয়স বেশি?</h3>'+(parts.length?'<ul>'+parts.map(p=>'<li><b>'+p[1]+'</b>: প্রায় '+bn(Math.round(p[0]))+' বছর বাড়িয়েছে</li>').join('')+'</ul>':'<p>দারুণ! প্রেশার, ওজন, ধূমপান বা ডায়াবেটিস আপনার হার্টের বয়স তেমন বাড়ায়নি। এই অভ্যাস ধরে রাখুন।</p>')+((A.age<30||A.age>74)?'<p class="hsmall">ℹ️ মূল গবেষণাটা ৩০–৭৪ বছর বয়সীদের ওপর করা, তাই আপনার বয়সে এই হিসাবটা আনুমানিক। তবু কোন অভ্যাসটা হার্টের বয়স বাড়াচ্ছে, সেটা বোঝার জন্য কাজে আসবে।</p>':'')+(A.sbpKnown?'':'<p class="hsmall">⚠️ প্রেশার জানা না থাকায় ১৩০ ধরে হিসাব করা হয়েছে। কাছের ফার্মেসি বা কমিউনিটি ক্লিনিকে মেপে আবার টেস্ট করুন, রেজাল্ট বদলে যেতে পারে।</p>');
  const t=[];
  if(a.smk)t.push('ধূমপান ছাড়ুন। এটাই সবচেয়ে বড় একক পরিবর্তন।');
  if(!A.sbpKnown)t.push('প্রেশার মাপুন। উচ্চ রক্তচাপের অনেকেরই কোনো লক্ষণ থাকে না।');
@@ -200,7 +200,7 @@ async function drawCard(d){
  c.fillStyle='#fff';c.font='700 '+(d.hShow.length>3?110:190)+'px "Hind Siliguri"';c.fillText(d.hShow,W/2,d.hShow.length>3?470:500);
  c.font='600 40px "Hind Siliguri"';c.fillStyle='#ffe3e7';c.fillText('বছর',W/2,580);
  c.font='600 50px "Hind Siliguri"';c.fillStyle='#fff';c.fillText('আসল বয়স '+bn(d.real)+' বছর',W/2,760);
- let msg,col;if(d.ha<30&&d.real<=35||d.diff<=-1){msg='হার্ট বয়সের চেয়েও তরুণ 💪';col='#5fe0a8';}else if(d.diff<=2){msg='হার্ট বয়সের সমান 👍';col='#9fe0ff';}else{msg='হার্ট '+bn(d.diff)+' বছর বেশি বুড়ো 😳';col='#ffb36b';}
+ let msg,col;if(d.diff<=-1){msg='হার্ট বয়সের চেয়েও তরুণ 💪';col='#5fe0a8';}else if(d.diff<=2){msg='হার্ট বয়সের সমান 👍';col='#9fe0ff';}else{msg='হার্ট '+bn(d.diff)+' বছর বেশি বুড়ো 😳';col='#ffb36b';}
  rr(c,140,800,800,104,52);c.fillStyle='rgba(255,255,255,.12)';c.fill();c.fillStyle=col;c.font='700 54px "Hind Siliguri"';c.fillText(msg,W/2,872);
  c.font='600 36px "Hind Siliguri"';c.fillStyle='#ffd1d8';c.fillText('আগামী ১০ বছরে হৃদরোগ/স্ট্রোকের আনুমানিক ঝুঁকি: '+bn((d.r*100).toFixed(1))+'%',W/2,980);
  if(d.parts.length){c.fillStyle='#ffc2cb';c.font='600 34px "Hind Siliguri"';c.fillText('সবচেয়ে বড় কারণ: '+d.parts.slice(0,2).map(p=>p[1].replace(/ \(.*\)/,'')).join(', '),W/2,1040);}
