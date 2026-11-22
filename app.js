@@ -39,7 +39,7 @@ $$('[data-fb]').forEach((a) => { a.href = CONFIG.FB_URL; a.target = '_blank'; a.
 
 // ===== data =====
 const DATA = { posts: [], geo: null, prices: null, alerts: null, lib: null };
-const DATA_V = '20261121c';
+const DATA_V = new Date().toISOString().slice(0, 13); // hourly cache-bust so nightly updates show quickly
 const getJSON = (u) => fetch(u + (u.includes('?') ? '&' : '?') + 'v=' + DATA_V).then((r) => r.json()).catch(() => null);
 
 // ===== alerts =====
@@ -65,8 +65,15 @@ function renderFeatures() { $('#featureGrid').innerHTML = FEATURES.map(([i, h, t
 // ===== posts =====
 const fmtDate = (d) => { const [y, m, dd] = d.split('-').map(Number); const mb = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'], me = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; return L(`${NB(dd)} ${mb[m - 1]} ${NB(y).replace(/,/g, '')}`, `${dd} ${me[m - 1]} ${y}`); };
 const postCard = (p, i) => `<article class="card post link" data-post="${i}"><img src="${p.img}" alt="" loading="lazy"><p class="small muted" style="margin:10px 0 0">${fmtDate(p.date)}</p><h3>${p.title}</h3></article>`;
-function renderPosts() { $('#latestPosts').innerHTML = DATA.posts.slice(0, 3).map(postCard).join('') || `<p class="muted">${L('লোড হচ্ছে…', 'Loading…')}</p>`; }
-document.addEventListener('click', (e) => { const c = e.target.closest('[data-post]'); if (!c) return; const p = DATA.posts[+c.dataset.post]; openDlg(p.title, `<img src="${p.img}" alt="" style="width:100%;border-radius:12px;margin-bottom:14px">${esc(p.body)}${p.body ? '' : ''}<p class="small muted">${L('পোস্টের লেখা বাংলায়।', 'Post text is in Bangla.')}</p>`); });
+const FBV = () => CONFIG.FB_URL + (CONFIG.FB_URL.includes('?') ? '&sk=videos' : '/videos');
+const videoCard = (v) => `<a class="card post link vcard" href="${v.url || FBV()}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><div class="vthumb">${v.img ? `<img src="${v.img}" alt="" loading="lazy">` : ''}<span class="vplay">▶</span>${v.dur ? `<span class="vdur">${v.dur}</span>` : ''}</div><p class="small muted" style="margin:10px 0 0">${fmtDate(v.date)}</p><h3>${v.title}</h3>${v.hook ? `<p class="small muted" style="margin:0 0 6px">${v.hook}</p>` : ''}<p class="small" style="margin:0;color:#1877F2;font-weight:700">${L('▶ ফেসবুকে ভিডিও দেখুন', '▶ Watch on Facebook')}</p></a>`;
+const videoFallback = () => `<a class="card link vcard" href="${FBV()}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><div class="ico">▶</div><h3>${L('আমাদের সব স্বাস্থ্য ভিডিও', 'All our health videos')}</h3><p class="small muted" style="margin:0">${L('প্রতিদিন নতুন বাংলা স্বাস্থ্য ভিডিও, ফেসবুকে দেখুন', 'New Bangla health videos daily, watch on Facebook')}</p></a>`;
+function renderPosts() {
+  $('#latestPosts').innerHTML = DATA.posts.slice(0, 3).map(postCard).join('') || `<p class="muted">${L('লোড হচ্ছে…', 'Loading…')}</p>`;
+  const lv = $('#latestVideos'); if (lv) lv.innerHTML = (DATA.videos || []).slice(0, 3).map(videoCard).join('') || videoFallback();
+  const ab = $('#allVideosBtn'); if (ab) ab.href = FBV();
+}
+document.addEventListener('click', (e) => { const c = e.target.closest('[data-post]'); if (!c) return; const p = DATA.posts[+c.dataset.post]; openDlg(p.title, `<img src="${p.img}" alt="" style="width:100%;border-radius:12px;margin-bottom:14px">${esc(p.body)}<p style="margin:16px 0 6px"><a class="btn" style="background:#1877F2;color:#fff" href="${p.video || FBV()}" target="_blank" rel="noopener">${p.video ? L('▶ এই বিষয়ের ভিডিও দেখুন', '▶ Watch the video on this topic') : L('▶ ফেসবুকে আমাদের স্বাস্থ্য ভিডিও দেখুন', '▶ Watch our health videos on Facebook')}</a></p><p class="small muted">${L('পোস্টের লেখা বাংলায়।', 'Post text is in Bangla.')}</p>`); });
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 function openDlg(t, h) { $('#dlgTitle').innerHTML = t; $('#dlgBody').innerHTML = h; $('#dlg').showModal(); }
 $('#dlgClose').addEventListener('click', () => $('#dlg').close());
@@ -295,6 +302,7 @@ function renderLearn() {
   else if (curLearn === 'survey') { B.innerHTML = `<form class="card" id="sv" style="max-width:720px"><h3>${L('২ মিনিটের স্বাস্থ্য সার্ভে', '2-minute health survey')}</h3><p class="small muted">${L('নাম লাগবে না। উত্তরগুলো আমাদের পরবর্তী কনটেন্ট ঠিক করতে সাহায্য করবে।', 'No name needed. Your answers help us plan content.')}</p>${SURVEY.map(([id, qb, qe, opts]) => `<fieldset style="border:0;padding:0;margin:14px 0"><legend><b>${L(qb, qe)}</b></legend>${opts.map((o, i) => `<label style="font-weight:400;display:flex;gap:10px;align-items:center;min-height:40px"><input type="radio" name="${id}" value="${o[1]}" style="width:auto;min-height:0" ${i ? '' : 'required'}> ${L(o[0], o[1])}</label>`).join('')}</fieldset>`).join('')}<button class="btn" ${CONFIG.SURVEY_URL ? '' : 'disabled'}>${L('জমা দিন', 'Submit')}</button><p id="svmsg" class="small">${CONFIG.SURVEY_URL ? '' : L('সার্ভে খুব শিগগিরই চালু হচ্ছে।', 'The survey opens very soon.')}</p></form>`;
     $('#sv').addEventListener('submit', async (e) => { e.preventDefault(); if (!CONFIG.SURVEY_URL) return; const fd = new FormData(e.target); fd.append('lang', document.documentElement.dataset.lang); fd.append('ts', new Date().toISOString());
       try { await fetch(CONFIG.SURVEY_URL, { method: 'POST', mode: 'no-cors', body: fd }); $('#svmsg').innerHTML = L('ধন্যবাদ! আপনার উত্তর জমা হয়েছে।', 'Thank you! Your answers were submitted.'); e.target.querySelector('button').disabled = true; } catch (err) { $('#svmsg').innerHTML = L('জমা হয়নি, আবার চেষ্টা করুন।', 'Not submitted, please try again.'); } }); }
+  else if (curLearn === 'video' && (DATA.videos || []).length) B.innerHTML = `<div class="grid">${DATA.videos.map(videoCard).join('')}</div>`;
   else if (curLearn === 'video') B.innerHTML = `<div class="grid">${[['ডেঙ্গু: লক্ষণ, বিপদ চিহ্ন, প্রতিরোধ', 'Dengue: signs, danger signs, prevention'], ['শীতে শিশুর নিউমোনিয়া', 'Child pneumonia in winter'], ['হাম: লক্ষণ, বিপদ চিহ্ন, টিকা', 'Measles: signs, danger signs, vaccine'], ['স্ট্রোক: F.A.S.T. ও প্রথমে করণীয়', 'Stroke: F.A.S.T. and first steps']].map(([b, e]) => `<a class="card link" target="_blank" rel="noopener" href="${CONFIG.FB_URL}${CONFIG.FB_URL.includes('?') ? '&sk=videos' : '/videos'}" style="text-decoration:none;color:inherit"><div class="ico">▶</div><h3>${L(b, e)}</h3><p class="small muted" style="margin:0">${L('ফেসবুকে দেখুন', 'Watch on Facebook')}</p></a>`).join('')}</div>`;
 }
 
@@ -330,8 +338,8 @@ $('#instSearch').addEventListener('input', renderInst);
 // ===== boot =====
 function rerender() { renderFeatures(); renderPosts(); renderToolTabs(); renderTool(); fillGeo(); renderSOS(); renderDocs(); renderPrices(); renderLearnTabs(); renderLearn(); renderAlerts(); renderHealthTabs(); renderHealth(); renderHome2(); renderInst(); $('#instSearch').placeholder = isBn() ? 'হাসপাতাল বা রোগ খুঁজুন (যেমন: হার্ট, চট্টগ্রাম)' : 'Search hospital or illness (e.g. heart, Chattogram)'; $('#docSearch').placeholder = isBn() ? 'যেমন: বুকে ব্যথা, জ্বর, চোখ' : 'e.g. chest pain, fever, eye'; $('#priceSearch').placeholder = isBn() ? 'টেস্ট খুঁজুন' : 'Search a test'; }
 (async () => {
-  const [posts, geo, prices, alerts, lib] = await Promise.all(['data/posts.json', 'data/geo.json', 'data/prices.json', 'data/alerts.json', 'data/library.json'].map(getJSON));
-  DATA.posts = posts || []; DATA.geo = geo; DATA.prices = prices; DATA.alerts = alerts; DATA.lib = lib;
+  const [posts, geo, prices, alerts, lib, vids] = await Promise.all(['data/posts.json', 'data/geo.json', 'data/prices.json', 'data/alerts.json', 'data/library.json', 'data/videos.json'].map(getJSON));
+  DATA.posts = posts || []; DATA.videos = Array.isArray(vids) ? vids : []; DATA.geo = geo; DATA.prices = prices; DATA.alerts = alerts; DATA.lib = lib;
   setLang(store.get('lang', 'bn')); route();
 })();
 if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.io$/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {});

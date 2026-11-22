@@ -150,3 +150,9 @@ footer a{color:#fff}
 .quizbanner:hover{transform:translateY(-2px)}
 .quizbanner .qb-gift{font-size:34px;animation:fwPulse 1.8s ease-in-out infinite}
 .quizbanner b{display:block;font-size:18px;color:#FFC94A}.quizbanner small{display:block;font-size:15px;color:#E6EEF8}
+
+/* health videos */
+.vthumb{position:relative;aspect-ratio:9/12;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#0B2346,#16B6A8)}
+.vthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.vplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;background:rgba(24,119,242,.92);color:#fff;display:grid;place-items:center;font-size:26px;padding-left:4px;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.vdur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.72);color:#fff;font-size:13px;padding:2px 8px;border-radius:6px}
