@@ -96,18 +96,13 @@
 .qz .wrap.band{padding-inline:max(4vw,16px)}
 .qz main{min-height:calc(100vh - 180px)}
 
-/* follow gate on result */
-.rcard{position:relative;overflow:hidden;min-height:520px}
-.rcard.locked .rbody{filter:blur(14px);pointer-events:none;user-select:none;opacity:.55}
-.fgate{display:none}
-.rcard.locked .fgate{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:56px!important;position:absolute;inset:0;z-index:5;padding:28px 22px;text-align:center;background:linear-gradient(180deg,rgba(11,35,70,.88),rgba(11,35,70,.95));color:#fff}
-.fg-ico{font-size:54px;animation:fwPulse 1.6s ease-in-out infinite}
-.fgate h2{color:#fff;font-size:clamp(26px,6vw,34px);margin:8px 0 6px}
-.fgate p{font-size:18px;color:#D6E3F5;max-width:34ch;margin:0 0 20px}
-.fg-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:min(100%,380px);min-height:66px;padding:14px 22px;border-radius:18px;background:#1877F2;color:#fff;font-size:22px;font-weight:700;text-decoration:none;box-shadow:0 0 0 0 rgba(24,119,242,.7);animation:fgPulse 1.4s ease-out infinite}
-.fg-btn svg{width:30px;height:30px}
+/* follow card on result (visible, not blocking) */
+.fcard{margin:18px auto 20px;max-width:440px;padding:20px 18px 22px;border-radius:20px;background:linear-gradient(160deg,#0B2346,#123F73);color:#fff;border:3px solid #FFC94A;box-shadow:0 14px 34px rgba(11,35,70,.35);animation:fcIn .5s ease both}
+.fc-t{font-size:21px;font-weight:700;margin:0 0 6px;color:#FFC94A;line-height:1.35}
+.fc-s{font-size:17px;margin:0 0 16px;color:#E6EEF8}
+.fg-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:64px;padding:14px 20px;border-radius:16px;background:#1877F2;color:#fff!important;font-size:22px;font-weight:700;text-decoration:none;animation:fgPulse 1.4s ease-out infinite}
+.fg-btn svg{width:30px;height:30px;flex:none}
 .fg-btn:hover{background:#0f63d6}
-.fgate .fg-note{font-size:15px;margin:16px 0 0;color:#AFC3DD}
-@keyframes fgPulse{0%{box-shadow:0 0 0 0 rgba(24,119,242,.7)}70%{box-shadow:0 0 0 18px rgba(24,119,242,0)}100%{box-shadow:0 0 0 0 rgba(24,119,242,0)}}
-.rcard.reveal .rbody{animation:rv .6s ease both}
-@keyframes rv{from{filter:blur(14px);opacity:.5}to{filter:none;opacity:1}}
+.fg-btn.done{background:#16B6A8;animation:none}
+@keyframes fgPulse{0%{box-shadow:0 0 0 0 rgba(24,119,242,.75)}70%{box-shadow:0 0 0 16px rgba(24,119,242,0)}100%{box-shadow:0 0 0 0 rgba(24,119,242,0)}}
+@keyframes fcIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
